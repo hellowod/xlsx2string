@@ -21,6 +21,7 @@ namespace xlsx2string
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        [STAThread]
         private static void Main(string[] args)
         {
             if (args.Length > 0) {
