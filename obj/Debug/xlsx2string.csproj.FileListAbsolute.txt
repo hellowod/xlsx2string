@@ -1,0 +1,15 @@
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\xlsx2string.exe
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\xlsx2string.pdb
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\CommandLine.dll
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\Excel.dll
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\Newtonsoft.Json.dll
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\CommandLine.xml
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\Excel.pdb
+E:\gitwork\clang_prj\txt\xlsx2string\bin\Debug\Newtonsoft.Json.xml
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.csprojResolveAssemblyReference.cache
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.ExcelForm.resources
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.Resource.resources
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.csproj.GenerateResource.Cache
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.exe
+E:\gitwork\clang_prj\txt\xlsx2string\obj\Debug\xlsx2string.pdb
