@@ -88,17 +88,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="src\Export\CplusExporter.cs" />
-    <Compile Include="src\Export\CsharpExporter.cs" />
-    <Compile Include="src\Export\GoLangExport.cs" />
-    <Compile Include="src\Export\IExporter.cs" />
-    <Compile Include="src\Export\JavaExporter.cs" />
-    <Compile Include="src\Export\JsonExporter.cs" />
-    <Compile Include="src\Export\TextExporter.cs" />
+    <Compile Include="src\exportcoder\CplusExporter.cs" />
+    <Compile Include="src\exportcoder\CsharpExporter.cs" />
+    <Compile Include="src\exportcoder\GoLangExport.cs" />
+    <Compile Include="src\exportstring\LuaExporter.cs" />
+    <Compile Include="src\IExporter.cs" />
+    <Compile Include="src\exportcoder\JavaExporter.cs" />
+    <Compile Include="src\exportstring\JsonExporter.cs" />
+    <Compile Include="src\exportstring\TextExporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="cmd\Program.Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Export\SQLExporter.cs" />
+    <Compile Include="src\exportstring\SQLExporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib.config">
