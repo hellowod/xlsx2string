@@ -35,31 +35,27 @@ namespace xlsx2string
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private static string OnSelectedPath()
         {
             FolderBrowserDialog browser = new FolderBrowserDialog();
             DialogResult dialog = browser.ShowDialog();
             if (dialog != DialogResult.OK) {
-                return;
+                return null;
             }
             if (browser.SelectedPath.Length < 4) {
-                return;
+                return null;
             }
-            textBox3.Text = browser.SelectedPath;
-            options.ExcelPath = textBox3.Text;
+            return browser.SelectedPath;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = OnSelectedPath();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog browser = new FolderBrowserDialog();
-            DialogResult dialog = browser.ShowDialog();
-            if (dialog != DialogResult.OK) {
-                return;
-            }
-            if (browser.SelectedPath.Length < 4) {
-                return;
-            }
-            textBox2.Text = browser.SelectedPath;
+            textBox2.Text = OnSelectedPath();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
