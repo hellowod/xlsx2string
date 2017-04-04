@@ -14,12 +14,16 @@ namespace xlsx2string
         // 导出Exporter
         private static Dictionary<ExportType, IExporter> exportDict;
 
+        private static List<ExportType> exporterTypes;
+
         static DataMemory()
         {
             checkerInfo = new Dictionary<string, string>();
             exporterInfo = new Dictionary<string, string>();
 
             exportDict = new Dictionary<ExportType, IExporter>();
+
+            exporterTypes = new List<ExportType>();
         }
 
         public static void SetExporter(ExportType type, IExporter exporter)
@@ -38,6 +42,18 @@ namespace xlsx2string
                 return exporter;
             }
             return null;
+        }
+
+        public static void SetExporterType(ExportType type)
+        {
+            if (!exporterTypes.Contains(type)) {
+                exporterTypes.Add(type);
+            }
+        }
+
+        public static List<ExportType> GetExporterTypes()
+        {
+            return exporterTypes;
         }
     }
 }
