@@ -44,6 +44,20 @@ namespace xlsx2string
                 set;
             }
 
+            [Option('j', "java", Required = false, HelpText = "指定输出的Java数据定义代码文件路径.")]
+            public string JavaPath
+            {
+                get;
+                set;
+            }
+
+            [Option('l', "lua", Required = false, HelpText = "指定输出的Lua数据定义代码文件路径.")]
+            public string LuaPath
+            {
+                get;
+                set;
+            }
+
             [Option('h', "header", Required = true, HelpText = "表格中有几行是表头.")]
             public int HeaderRows
             {
