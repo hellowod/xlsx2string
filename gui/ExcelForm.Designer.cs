@@ -41,6 +41,7 @@ namespace xlsx2string
             this.button5 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -122,6 +123,7 @@ namespace xlsx2string
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox8);
             this.groupBox2.Controls.Add(this.checkBox7);
             this.groupBox2.Controls.Add(this.checkBox6);
             this.groupBox2.Controls.Add(this.button1);
@@ -144,24 +146,34 @@ namespace xlsx2string
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "导出表格";
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(528, 206);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(36, 16);
+            this.checkBox8.TabIndex = 20;
+            this.checkBox8.Text = "cs";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(551, 209);
+            this.checkBox7.Location = new System.Drawing.Point(462, 206);
             this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(60, 16);
+            this.checkBox7.Size = new System.Drawing.Size(36, 16);
             this.checkBox7.TabIndex = 19;
-            this.checkBox7.Text = "GoLang";
+            this.checkBox7.Text = "go";
             this.checkBox7.UseVisualStyleBackColor = true;
             // 
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(477, 210);
+            this.checkBox6.Location = new System.Drawing.Point(398, 206);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(42, 16);
             this.checkBox6.TabIndex = 18;
-            this.checkBox6.Text = "C++";
+            this.checkBox6.Text = "cpp";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
             // button1
@@ -177,41 +189,41 @@ namespace xlsx2string
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(407, 210);
+            this.checkBox5.Location = new System.Drawing.Point(341, 207);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(42, 16);
             this.checkBox5.TabIndex = 16;
-            this.checkBox5.Text = "SQL";
+            this.checkBox5.Text = "sql";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(312, 210);
+            this.checkBox4.Location = new System.Drawing.Point(269, 207);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(66, 16);
+            this.checkBox4.Size = new System.Drawing.Size(42, 16);
             this.checkBox4.TabIndex = 15;
-            this.checkBox4.Text = "TabText";
+            this.checkBox4.Text = "txt";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(240, 210);
+            this.checkBox3.Location = new System.Drawing.Point(206, 207);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(42, 16);
             this.checkBox3.TabIndex = 14;
-            this.checkBox3.Text = "Lua";
+            this.checkBox3.Text = "lua";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(156, 210);
+            this.checkBox2.Location = new System.Drawing.Point(149, 207);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(42, 16);
             this.checkBox2.TabIndex = 13;
-            this.checkBox2.Text = "Csv";
+            this.checkBox2.Text = "csv";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -226,12 +238,13 @@ namespace xlsx2string
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(79, 210);
+            this.checkBox1.Location = new System.Drawing.Point(95, 207);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(48, 16);
             this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Json";
+            this.checkBox1.Text = "json";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // listBox1
             // 
@@ -241,6 +254,7 @@ namespace xlsx2string
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(595, 88);
             this.listBox1.TabIndex = 10;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // progressBar1
             // 
@@ -329,5 +343,6 @@ namespace xlsx2string
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox6;
+        private CheckBox checkBox8;
     }
 }

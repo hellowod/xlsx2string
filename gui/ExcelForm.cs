@@ -87,7 +87,8 @@ namespace xlsx2string
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            listBox1.Items.Add(checkBox1.Text);
+            listBox1.Items.Add(checkBox1.Checked);
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -98,6 +99,16 @@ namespace xlsx2string
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

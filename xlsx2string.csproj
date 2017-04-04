@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cfg\XlsxCfg.cs" />
     <Compile Include="gui\ExcelForm.cs">
       <SubType>Form</SubType>
     </Compile>
