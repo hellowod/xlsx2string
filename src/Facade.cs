@@ -3,43 +3,37 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace xlsx2string
 {
     public static class Facade
     {
-        private static List<IExporter> exportList = new List<IExporter>();
-
         /// <summary>
         /// 初始化注册器
         /// </summary>
         private static void IniRegister()
         {
-            ReisterExporter(new JsonExporter());
-            ReisterExporter(new LuaExporter());
-            ReisterExporter(new SQLExporter());
-            ReisterExporter(new TextExporter());
+            ReisterExporter(ExportType.json, new JsonExporter());
+            ReisterExporter(ExportType.lua, new LuaExporter());
+            ReisterExporter(ExportType.sql, new SQLExporter());
+            ReisterExporter(ExportType.txt, new TextExporter());
 
-            ReisterExporter(new CplusExporter());
-            ReisterExporter(new CsharpExporter());
-            ReisterExporter(new GoLangExporter());
-            ReisterExporter(new JavaExporter());
+            ReisterExporter(ExportType.cpp, new CplusExporter());
+            ReisterExporter(ExportType.cs, new CsharpExporter());
+            ReisterExporter(ExportType.go, new GoLangExporter());
+            ReisterExporter(ExportType.java, new JavaExporter());
         }
 
         /// <summary>
         /// 注册导出器
         /// </summary>
-        private static void ReisterExporter(IExporter exporter)
+        private static void ReisterExporter(ExportType type, IExporter exporter)
         {
             if (exporter == null) {
                 return;
             }
-            if (!exportList.Contains(exporter)) {
-                exportList.Add(exporter);
-            }
+            DataMemory.SetExporter(type, exporter);
         }
 
         public static List<string> ProcessCore(Options options)
@@ -66,7 +60,7 @@ namespace xlsx2string
         /// 根据命令行参数，执行Excel数据导出工作
         /// </summary>
         /// <param name="options">命令行参数</param>
-        public static void ParseExcel(Options options)
+        public static void ParseXlsx(Options options)
         {
             // 加载Excel文件
             using (FileStream excelFile = File.Open(options.ExcelPath, FileMode.Open, FileAccess.Read)) {

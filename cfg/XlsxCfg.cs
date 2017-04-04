@@ -4,11 +4,12 @@ namespace xlsx2string
 {
     public enum ExportType
     {
-        cs,
+        json,
         txt,
         csv,
         lua,
 
+        cs,
         java,
         cpp,
         go,
