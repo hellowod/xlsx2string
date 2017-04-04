@@ -155,6 +155,7 @@ namespace xlsx2string
             this.checkBox8.TabIndex = 20;
             this.checkBox8.Text = "cs";
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // checkBox7
             // 
@@ -165,6 +166,7 @@ namespace xlsx2string
             this.checkBox7.TabIndex = 19;
             this.checkBox7.Text = "go";
             this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // checkBox6
             // 
@@ -175,6 +177,7 @@ namespace xlsx2string
             this.checkBox6.TabIndex = 18;
             this.checkBox6.Text = "cpp";
             this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // button1
             // 
@@ -195,6 +198,7 @@ namespace xlsx2string
             this.checkBox5.TabIndex = 16;
             this.checkBox5.Text = "sql";
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // checkBox4
             // 
@@ -205,6 +209,7 @@ namespace xlsx2string
             this.checkBox4.TabIndex = 15;
             this.checkBox4.Text = "txt";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -215,6 +220,7 @@ namespace xlsx2string
             this.checkBox3.TabIndex = 14;
             this.checkBox3.Text = "lua";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -225,6 +231,7 @@ namespace xlsx2string
             this.checkBox2.TabIndex = 13;
             this.checkBox2.Text = "csv";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // label4
             // 

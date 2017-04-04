@@ -9,6 +9,11 @@ namespace xlsx2string
 {
     public static class Facade
     {
+        static Facade()
+        {
+            IniRegister();
+        }
+
         /// <summary>
         /// 初始化注册器
         /// </summary>

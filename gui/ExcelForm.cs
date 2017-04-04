@@ -87,8 +87,10 @@ namespace xlsx2string
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(checkBox1.Text);
-            listBox1.Items.Add(checkBox1.Checked);
+            List<ExportType> list = DataMemory.GetExporterTypes();
+            foreach(ExportType type in list) {
+                listBox1.Items.Add(type.ToString());
+            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -106,9 +108,58 @@ namespace xlsx2string
 
         }
 
+        private void OnCheckedChangeed(object sender, EventArgs e)
+        {
+            CheckBox check = sender as CheckBox;
+            if (check == null) {
+                return;
+            }
+            ExportType type = check.Text.ToEnum<ExportType>();
+            if (check.Checked) {
+                DataMemory.SetExporterType(type);
+            } else {
+                DataMemory.RemExportType(type);
+            }
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
         }
     }
 }
