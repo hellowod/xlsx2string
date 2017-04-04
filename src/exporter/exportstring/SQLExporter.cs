@@ -7,10 +7,15 @@ using Newtonsoft.Json;
 
 namespace xlsx2string
 {
-    public class SQLExporter
+    public class SQLExporter : IExporter
     {
         private DataTable m_sheet;
         private int m_headerRows;
+
+        public SQLExporter()
+        {
+
+        }
 
         /// <summary>
         /// 初始化内部数据
@@ -30,16 +35,14 @@ namespace xlsx2string
         /// <param name="encoding">编码格式</param>
         public void SaveToFile(string filePath, Encoding encoding)
         {
-            //-- 转换成SQL语句
+            // 转换成SQL语句
             string tableName = Path.GetFileNameWithoutExtension(filePath);
             string tabelStruct = GetTabelStructSQL(m_sheet, tableName);
             string tabelContent = GetTableContentSQL(m_sheet, tableName);
 
-            //-- 保存文件
-            using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-            {
-                using (TextWriter writer = new StreamWriter(file, encoding))
-                {
+            // 保存文件
+            using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
+                using (TextWriter writer = new StreamWriter(file, encoding)) {
                     writer.Write(tabelStruct);
                     writer.WriteLine();
                     writer.Write(tabelContent);
@@ -56,23 +59,21 @@ namespace xlsx2string
             StringBuilder sbNames = new StringBuilder();
             StringBuilder sbValues = new StringBuilder();
 
-            //-- 字段名称列表
-            foreach (DataColumn column in sheet.Columns)
-            {
+            // 字段名称列表
+            foreach (DataColumn column in sheet.Columns) {
                 sbNames.Append(column.ToString());
                 sbNames.Append(", ");
             }
 
-            //-- 逐行转换数据
+            // 逐行转换数据
             int firstDataRow = m_headerRows - 1;
-            for (int i = firstDataRow; i < sheet.Rows.Count; i++ )
-            {
+            for (int i = firstDataRow; i < sheet.Rows.Count; i++) {
                 DataRow row = sheet.Rows[i];
                 sbValues.Clear();
-                foreach (DataColumn column in sheet.Columns)
-                {
-                    if (sbValues.Length > 0)
+                foreach (DataColumn column in sheet.Columns) {
+                    if (sbValues.Length > 0) {
                         sbValues.Append(", ");
+                    }
                     sbValues.AppendFormat("'{0}'", row[column].ToString());
                 }
 
@@ -85,7 +86,6 @@ namespace xlsx2string
 #endif
 
             }
-
             return sbContent.ToString();
         }
 
@@ -100,19 +100,17 @@ namespace xlsx2string
 
             DataRow typeRow = sheet.Rows[0];
 
-            foreach (DataColumn column in sheet.Columns)
-            {
+            foreach (DataColumn column in sheet.Columns) {
                 string filedName = column.ToString();
                 string filedType = typeRow[column].ToString();
-
-                if (filedType == "varchar")
+                if (filedType == "varchar") {
                     sb.AppendFormat("`{0}` {1}(64),", filedName, filedType);
-                else if (filedType == "text")
+                } else if (filedType == "text") {
                     sb.AppendFormat("`{0}` {1}(256),", filedName, filedType);
-                else
+                } else {
                     sb.AppendFormat("`{0}` {1},", filedName, filedType);
+                }
             }
-
             sb.AppendFormat("PRIMARY KEY (`{0}`) ", sheet.Columns[0].ToString());
             sb.AppendLine("\n) DEFAULT CHARSET=utf8;");
             return sb.ToString();

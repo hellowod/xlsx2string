@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace xlsx2string
 {
-    class GoLangExport
+    public class TextExporter : IExporter
     {
+        public void SaveToFile(string filePath, Encoding encoding)
+        {
+            
+        }
     }
 }

@@ -5,7 +5,8 @@ namespace xlsx2string
 {
     partial class ExcelForm
     {
-        private string defaultPath = "";
+        // private string defaultPath = "";
+        private Options options = new Options();
 
         /// <summary>
         /// Required designer variable.
@@ -117,6 +118,7 @@ namespace xlsx2string
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(595, 124);
             this.listBox2.TabIndex = 18;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // groupBox2
             // 
@@ -281,6 +283,7 @@ namespace xlsx2string
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(514, 21);
             this.textBox3.TabIndex = 19;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // ExcelForm
             // 

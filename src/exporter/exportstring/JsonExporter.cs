@@ -10,9 +10,14 @@ namespace xlsx2string
     /// <summary>
     /// 将DataTable对象，转换成JSON string，并保存到文件中
     /// </summary>
-    public class JsonExporter
+    public class JsonExporter : IExporter
     {
         private Dictionary<string, Dictionary<string, object>> m_data;
+
+        public JsonExporter()
+        {
+
+        }
 
         /// <summary>
         /// 构造函数：完成内部数据创建
@@ -24,7 +29,7 @@ namespace xlsx2string
             if (sheet.Columns.Count <= 0) {
                 return;
             }
-                
+
             if (sheet.Rows.Count <= 0) {
                 return;
             }
