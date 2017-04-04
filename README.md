@@ -1,2 +1,3 @@
 # xlsx2string
-xlsx2string
+	
+	该工具提供简单高效的命令行和图形界面的方式导出xlsx格式文件转换成文本数据。
