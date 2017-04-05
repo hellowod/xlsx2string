@@ -67,6 +67,84 @@ namespace xlsx2string
             }
         }
 
+        public Encoding Coding
+        {
+            get;
+            set;
+        }
+
+        public Options Option
+        {
+            get;
+            set;
+        }
+
+        public DataTable Sheet
+        {
+            get;
+            set;
+        }
+
+        public void Export()
+        {
+            if (m_data == null) {
+                throw new Exception("JsonExporter内部数据为空。");
+            }
+
+            // 转换为JSON字符串
+            string json = JsonConvert.SerializeObject(m_data, Formatting.Indented);
+            string jsonPath = Path.GetDirectoryName(Option.JsonPath);
+            if (!Directory.Exists(jsonPath)) {
+                Directory.CreateDirectory(jsonPath);
+            }
+
+            // 保存文件
+            using (FileStream file = new FileStream(Option.JsonPath, FileMode.Create, FileAccess.Write)) {
+                using (TextWriter writer = new StreamWriter(file, Coding)) {
+                    writer.Write(json);
+                }
+            }
+        }
+
+        public void Init()
+        {
+            if (Sheet.Columns.Count <= 0) {
+                return;
+            }
+
+            if (Sheet.Rows.Count <= 0) {
+                return;
+            }
+
+            m_data = new Dictionary<string, Dictionary<string, object>>();
+
+            // 以第一列为ID，转换成ID->Object的字典
+            int firstDataRow = 2 - 1;
+            for (int i = firstDataRow; i < Sheet.Rows.Count; i++) {
+                DataRow row = Sheet.Rows[i];
+                string id = row[Sheet.Columns[0]].ToString();
+                if (id.Length <= 0) {
+                    continue;
+                }
+                Dictionary<string, object> rowData = new Dictionary<string, object>();
+                foreach (DataColumn column in Sheet.Columns) {
+                    object value = row[column];
+                    // 去掉数值字段的“.0”
+                    if (value.GetType() == typeof(double)) {
+                        double num = (double)value;
+                        if ((int)num == num) {
+                            value = (int)num;
+                        }
+                    }
+                    string fieldName = column.ToString();
+                    if (!string.IsNullOrEmpty(fieldName)) {
+                        rowData[fieldName] = value;
+                    }
+                }
+                m_data[id] = rowData;
+            }
+        }
+
         /// <summary>
         /// 将内部数据转换成Json文本，并保存至文件
         /// </summary>
@@ -87,9 +165,5 @@ namespace xlsx2string
             }
         }
 
-        public void ToFile(DataTable sheet, Options option, Encoding encoding)
-        {
-            Console.WriteLine("======================");
-        }
     }
 }

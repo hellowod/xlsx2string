@@ -1,16 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using System.Data;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace xlsx2string
 {
     public interface IExporter
     {
-        void SaveToFile(string filePath, Encoding encoding);
+        DataTable Sheet
+        {
+            get;
+            set;
+        }
 
-        void ToFile(DataTable sheet, Options option, Encoding encoding);
+        Options Option
+        {
+            get;
+            set;
+        }
+
+        Encoding Coding
+        {
+            get;
+            set;
+        }
+
+        void Init();
+
+        void Export();
+
+        void SaveToFile(string filePath, Encoding encoding);
     }
 }

@@ -92,7 +92,7 @@ namespace xlsx2string
                 }
                 foreach(ExportType type in typeList) {
                     string outFileName = string.Format("{0}.{1}", fileName, type);
-                    string dstFile = Path.Combine(optionForm.XlsxDstPath, outFileName);
+                    string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
                     Options option = Options.Convert(srcFile, dstFile, type);
                     DataMemory.SetExportOption(type, option);
                 }
@@ -126,42 +126,40 @@ namespace xlsx2string
         /// 根据命令行参数，执行Excel数据导出工作
         /// </summary>
         /// <param name="type"></param>
-        /// <param name="options"></param>
-        public static void CmdXlsx(ExportType type, Options options)
+        /// <param name="option"></param>
+        public static void CmdXlsx(ExportType type, Options option)
         {
             // 加载Excel文件
-            using (FileStream excelFile = File.Open(options.ExcelPath, FileMode.Open, FileAccess.Read)) {
+            using (FileStream excelFile = File.Open(option.ExcelPath, FileMode.Open, FileAccess.Read)) {
                 IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(excelFile);
                 excelReader.IsFirstRowAsColumnNames = true;
                 DataSet datSet = excelReader.AsDataSet();
 
                 // 数据检测
                 if (datSet.Tables.Count < 1) {
-                    throw new Exception("Excel not found sheet: " + options.ExcelPath);
+                    throw new Exception("Excel not found sheet: " + option.ExcelPath);
                 }
 
                 // 取得数据
                 DataTable sheet = datSet.Tables[0];
                 if (sheet.Rows.Count <= 0) {
-                    throw new Exception("Excel sheet not data: " + options.ExcelPath);
+                    throw new Exception("Excel sheet not data: " + option.ExcelPath);
                 }
 
                 // 确定编码
                 Encoding coding = new UTF8Encoding(false);
-                if (options.Encoding != "utf8-nobom") {
+                if (option.Encoding != "utf8-nobom") {
                     foreach (EncodingInfo info in Encoding.GetEncodings()) {
                         Encoding e = info.GetEncoding();
-                        if (e.EncodingName == options.Encoding) {
+                        if (e.EncodingName == option.Encoding) {
                             coding = e;
                             break;
                         }
                     }
                 }
 
-                IExporter exporter = DataMemory.GetExporter(type);
-                if(exporter != null) {
-                    exporter.ToFile(sheet, options, coding);
-                }
+                // 执行导出器 
+                RunExporter(type, sheet, option, coding);
 
                 /*
                 // 导出JSON文件
@@ -186,6 +184,27 @@ namespace xlsx2string
                 }
                 */
             }
+        }
+
+        /// <summary>
+        /// 执行导出器
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="sheet"></param>
+        /// <param name="option"></param>
+        /// <param name="coding"></param>
+        private static void RunExporter(ExportType type, DataTable sheet, Options option, Encoding coding)
+        {
+            IExporter exporter = DataMemory.GetExporter(type);
+            if (exporter == null) {
+                return;
+            }
+            exporter.Sheet = sheet;
+            exporter.Option = option;
+            exporter.Coding = coding;
+
+            exporter.Init();
+            exporter.Export();
         }
     }
 }

@@ -2,8 +2,6 @@
 using System.IO;
 using System.Data;
 using System.Text;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace xlsx2string
 {
@@ -11,6 +9,24 @@ namespace xlsx2string
     {
         private DataTable m_sheet;
         private int m_headerRows;
+
+        public Encoding Coding
+        {
+            get;
+            set;
+        }
+
+        public Options Option
+        {
+            get;
+            set;
+        }
+
+        public DataTable Sheet
+        {
+            get;
+            set;
+        }
 
         public SQLExporter()
         {
@@ -116,7 +132,12 @@ namespace xlsx2string
             return sb.ToString();
         }
 
-        public void ToFile(DataTable sheet, Options option, Encoding encoding)
+        public void Init()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Export()
         {
             throw new NotImplementedException();
         }

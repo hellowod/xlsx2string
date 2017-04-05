@@ -27,6 +27,24 @@ namespace xlsx2string
             set;
         }
 
+        public DataTable Sheet
+        {
+            get;
+            set;
+        }
+
+        public Options Option
+        {
+            get;
+            set;
+        }
+
+        public Encoding Coding
+        {
+            get;
+            set;
+        }
+
         public CsharpExporter()
         {
 
@@ -88,7 +106,12 @@ namespace xlsx2string
             }
         }
 
-        public void ToFile(DataTable sheet, Options option, Encoding encoding)
+        public void Init()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Export()
         {
             throw new NotImplementedException();
         }
