@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace xlsx2string
 {
-    partial class ExcelForm
+    partial class XlsxForm
     {
         // private string defaultPath = "";
         private Options options = new Options();
@@ -25,6 +25,11 @@ namespace xlsx2string
             base.Dispose(disposing);
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+        }
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -33,7 +38,7 @@ namespace xlsx2string
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExcelForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XlsxForm));
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();

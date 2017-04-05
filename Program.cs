@@ -56,7 +56,7 @@ namespace xlsx2string
         {
             IntPtr console = GetConsoleWindow();
             ShowWindow(console, SW_HIDE);
-            Application.Run(new ExcelForm());
+            Application.Run(new XlsxForm());
         }
     }
 }

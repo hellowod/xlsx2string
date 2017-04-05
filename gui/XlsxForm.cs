@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace xlsx2string
 {
-    public partial class ExcelForm : Form
+    public partial class XlsxForm : System.Windows.Forms.Form
     {
-        public ExcelForm()
+        public XlsxForm()
         {
             this.MaximizeBox = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

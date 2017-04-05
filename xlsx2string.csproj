@@ -95,11 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cfg\XlsxCfg.cs" />
-    <Compile Include="gui\ExcelForm.cs">
+    <Compile Include="gui\XlsxForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\ExcelForm.Designer.cs">
-      <DependentUpon>ExcelForm.cs</DependentUpon>
+    <Compile Include="gui\XlsxForm.Designer.cs">
+      <DependentUpon>XlsxForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,8 +142,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="gui\ExcelForm.resx">
-      <DependentUpon>ExcelForm.cs</DependentUpon>
+    <EmbeddedResource Include="gui\XlsxForm.resx">
+      <DependentUpon>XlsxForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
