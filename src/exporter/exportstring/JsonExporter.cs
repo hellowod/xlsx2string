@@ -10,29 +10,11 @@ namespace xlsx2string
     /// <summary>
     /// 将DataTable对象，转换成JSON string，并保存到文件中
     /// </summary>
-    public class JsonExporter : ExporterBase, IExporter
+    public class JsonExporter : ExporterBase
     {
         private Dictionary<string, Dictionary<string, object>> datTable;
 
-        public Encoding Coding
-        {
-            get;
-            set;
-        }
-
-        public Options Option
-        {
-            get;
-            set;
-        }
-
-        public DataTable Sheet
-        {
-            get;
-            set;
-        }
-
-        public void Export()
+        public override void Export()
         {
             if (datTable == null) {
                 throw new Exception("JsonExporter内部数据为空。");
@@ -45,7 +27,7 @@ namespace xlsx2string
             this.WriteFile(Option.JsonPath, json, Coding);
         }
 
-        public void Init()
+        public override void Init()
         {
             if (Sheet.Columns.Count <= 0) {
                 return;
@@ -88,7 +70,7 @@ namespace xlsx2string
         /// 将内部数据转换成Json文本，并保存至文件
         /// </summary>
         /// <param name="jsonPath">输出文件路径</param>
-        public void SaveToFile(string filePath, Encoding encoding)
+        public override void SaveToFile(string filePath, Encoding encoding)
         {
             if (datTable == null) {
                 throw new Exception("JsonExporter内部数据为空。");

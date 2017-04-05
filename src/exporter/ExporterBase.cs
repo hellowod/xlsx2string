@@ -1,10 +1,30 @@
-﻿using System.IO;
+﻿using System;
+using System.Data;
+using System.IO;
 using System.Text;
 
 namespace xlsx2string
 {
-    public abstract class ExporterBase
+    public abstract class ExporterBase : IExporter
     {
+        public DataTable Sheet
+        {
+            get;
+            set;
+        }
+
+        public Options Option
+        {
+            get;
+            set;
+        }
+
+        public Encoding Coding
+        {
+            get;
+            set;
+        }
+
         protected virtual void WriteFile(string path, string context, Encoding coding)
         {
             string outPath = Path.GetDirectoryName(path);
@@ -22,6 +42,21 @@ namespace xlsx2string
         protected virtual string GetFileName(string path)
         {
             return Path.GetFileNameWithoutExtension(path);
+        }
+
+        public virtual void Init()
+        {
+            
+        }
+
+        public virtual void Export()
+        {
+            
+        }
+
+        public virtual void SaveToFile(string filePath, Encoding encoding)
+        {
+            
         }
     }
 }

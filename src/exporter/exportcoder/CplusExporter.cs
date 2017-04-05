@@ -4,37 +4,19 @@ using System.Text;
 
 namespace xlsx2string
 {
-    public class CplusExporter : IExporter
+    public class CplusExporter : ExporterBase
     {
-        public Encoding Coding
-        {
-            get;
-            set;
-        }
-
-        public Options Option
-        {
-            get;
-            set;
-        }
-
-        public DataTable Sheet
-        {
-            get;
-            set;
-        }
-
-        public void Export()
+        public override void Export()
         {
             throw new NotImplementedException();
         }
 
-        public void Init()
+        public override void Init()
         {
             throw new NotImplementedException();
         }
 
-        public void SaveToFile(string filePath, Encoding encoding)
+        public override void SaveToFile(string filePath, Encoding encoding)
         {
             throw new NotImplementedException();
         }

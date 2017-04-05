@@ -10,7 +10,7 @@ namespace xlsx2string
     /// 根据表头，生成C#类定义数据结构
     /// 表头使用三行定义：字段名称、字段类型、注释
     /// </summary>
-    public class CsharpExporter : ExporterBase, IExporter
+    public class CsharpExporter : ExporterBase
     {
         struct FieldDef
         {
@@ -27,25 +27,7 @@ namespace xlsx2string
             set;
         }
 
-        public DataTable Sheet
-        {
-            get;
-            set;
-        }
-
-        public Options Option
-        {
-            get;
-            set;
-        }
-
-        public Encoding Coding
-        {
-            get;
-            set;
-        }
-
-        public void SaveToFile(string filePath, Encoding encoding)
+        public override void SaveToFile(string filePath, Encoding encoding)
         {
             if (fieldList == null) {
                 throw new Exception("CSDefineGenerator内部数据为空。");
@@ -80,7 +62,7 @@ namespace xlsx2string
             }
         }
 
-        public void Init()
+        public override void Init()
         {
             if (Sheet.Rows.Count < 2) {
                 return;
@@ -100,7 +82,7 @@ namespace xlsx2string
             }
         }
 
-        public void Export()
+        public override void Export()
         {
             if (fieldList == null) {
                 throw new Exception("CSDefineGenerator内部数据为空。");

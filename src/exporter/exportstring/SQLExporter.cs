@@ -5,28 +5,10 @@ using System.Text;
 
 namespace xlsx2string
 {
-    public class SQLExporter : IExporter
+    public class SQLExporter : ExporterBase
     {
         private DataTable m_sheet;
         private int m_headerRows;
-
-        public Encoding Coding
-        {
-            get;
-            set;
-        }
-
-        public Options Option
-        {
-            get;
-            set;
-        }
-
-        public DataTable Sheet
-        {
-            get;
-            set;
-        }
 
         public SQLExporter()
         {
@@ -49,7 +31,7 @@ namespace xlsx2string
         /// </summary>
         /// <param name="filePath">存盘文件</param>
         /// <param name="encoding">编码格式</param>
-        public void SaveToFile(string filePath, Encoding encoding)
+        public override void SaveToFile(string filePath, Encoding encoding)
         {
             // 转换成SQL语句
             string tableName = Path.GetFileNameWithoutExtension(filePath);
@@ -132,12 +114,12 @@ namespace xlsx2string
             return sb.ToString();
         }
 
-        public void Init()
+        public override void Init()
         {
             throw new NotImplementedException();
         }
 
-        public void Export()
+        public override void Export()
         {
             throw new NotImplementedException();
         }
