@@ -5,6 +5,13 @@ using System.Text;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
+/***
+ * JsonExporter.cs
+ * 
+ * Author abaojin
+ * Version 1.0
+ * Date 2017.04.05
+ */
 namespace xlsx2string
 {
     /// <summary>

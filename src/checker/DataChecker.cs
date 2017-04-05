@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+/***
+ * DataChecker.cs
+ * 
+ * Author abaojin
+ * Version 1.0
+ * Date 2017.04.05
+ */
 namespace xlsx2string
 {
     /// <summary>

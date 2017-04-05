@@ -1,6 +1,13 @@
 ﻿using System.Data;
 using System.Text;
 
+/***
+ * IExporter.cs
+ * 
+ * Author abaojin
+ * Version 1.0
+ * Date 2017.04.05
+ */
 namespace xlsx2string
 {
     public interface IExporter
