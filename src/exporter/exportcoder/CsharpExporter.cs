@@ -87,5 +87,10 @@ namespace xlsx2string
                     writer.Write(sb.ToString());
             }
         }
+
+        public void ToFile(DataTable sheet, Options option, Encoding encoding)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

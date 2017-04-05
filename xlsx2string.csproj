@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cfg\XlsxCfg.cs" />
+    <Compile Include="cmd\OptionsForm.cs" />
     <Compile Include="gui\XlsxForm.cs">
       <SubType>Form</SubType>
     </Compile>

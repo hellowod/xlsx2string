@@ -86,5 +86,10 @@ namespace xlsx2string
                     writer.Write(json);
             }
         }
+
+        public void ToFile(DataTable sheet, Options option, Encoding encoding)
+        {
+            Console.WriteLine("======================");
+        }
     }
 }

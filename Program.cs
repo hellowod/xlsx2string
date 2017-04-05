@@ -38,14 +38,14 @@ namespace xlsx2string
 
             if (parser.ParseArgumentsStrict(args, options, () => Environment.Exit(-1))) {
                 try {
-                    Facade.ParseXlsx(options);
-                } catch (Exception exp) {
-                    Console.WriteLine("Error: " + exp.Message);
+                    // Facade.RunXlsx(options);
+                } catch (Exception ex) {
+                    Console.WriteLine("Error: " + ex.Message);
                 }
             }
             TimeSpan expend = DateTime.Now - startTime;
             Console.WriteLine(
-                string.Format("转换完成[{1}毫秒].", expend.Milliseconds)
+                string.Format("Expend time [{1} millisecond].", expend.Milliseconds)
             );
         }
 

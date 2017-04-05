@@ -115,5 +115,10 @@ namespace xlsx2string
             sb.AppendLine("\n) DEFAULT CHARSET=utf8;");
             return sb.ToString();
         }
+
+        public void ToFile(DataTable sheet, Options option, Encoding encoding)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

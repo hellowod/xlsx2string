@@ -5,29 +5,50 @@ namespace xlsx2string
 {
     public static class DataMemory
     {
-        private static Dictionary<String, String> checkerInfo;
-        private static Dictionary<String, String> exporterInfo;
-
-        private static List<ExportType> exporterTypes;
+        private static Dictionary<String, String> checkerInfoCached;
+        private static Dictionary<String, String> exporterInfoCached;
 
         private static Dictionary<ExportType, IExporter> exporterCached;
         private static Dictionary<ExportType, List<Options>> exporterOption;
+        private static OptionsForm exporterOptionsForm;
 
         static DataMemory()
         {
-            checkerInfo = new Dictionary<string, string>();
-            exporterInfo = new Dictionary<string, string>();
-
-            exporterTypes = new List<ExportType>();
+            checkerInfoCached = new Dictionary<string, string>();
+            exporterInfoCached = new Dictionary<string, string>();
 
             exporterCached = new Dictionary<ExportType, IExporter>();
             exporterOption = new Dictionary<ExportType, List<Options>>();
+            exporterOptionsForm = new OptionsForm();
+
+            IniMemory();
         }
 
-        public static void SetExporter(ExportType type, IExporter exporter)
+        private static void IniMemory()
+        {
+            IniExporter();
+        }
+
+        /// <summary>
+        /// 初始化注册器
+        /// </summary>
+        private static void IniExporter()
+        {
+            SetExporter(ExportType.json, new JsonExporter());
+            SetExporter(ExportType.lua, new LuaExporter());
+            SetExporter(ExportType.sql, new SQLExporter());
+            SetExporter(ExportType.txt, new TextExporter());
+
+            SetExporter(ExportType.cpp, new CplusExporter());
+            SetExporter(ExportType.cs, new CsharpExporter());
+            SetExporter(ExportType.go, new GoLangExporter());
+            SetExporter(ExportType.java, new JavaExporter());
+        }
+
+        private static void SetExporter(ExportType type, IExporter exporter)
         {
             IExporter tmpExporter = null;
-            if(!exporterCached.TryGetValue(type, out tmpExporter)) {
+            if(exporterCached.TryGetValue(type, out tmpExporter)) {
                 return;
             }
             exporterCached.Add(type, exporter);
@@ -42,23 +63,48 @@ namespace xlsx2string
             return null;
         }
 
-        public static void SetExporterType(ExportType type)
+        /// <summary>
+        /// 设置资源路径
+        /// </summary>
+        /// <param name="path"></param>
+        public static void SetOptionFormSrcPath(string path)
         {
-            if (!exporterTypes.Contains(type)) {
-                exporterTypes.Add(type);
+            if (string.IsNullOrEmpty(path)) {
+                return;
             }
+            exporterOptionsForm.XlsxSrcPath = path;
         }
 
-        public static List<ExportType> GetExporterTypes()
+        /// <summary>
+        /// 设置导出路径
+        /// </summary>
+        /// <param name="path"></param>
+        public static void SetOptionFormDstPath(string path)
         {
-            return exporterTypes;
+            if (string.IsNullOrEmpty(path)) {
+                return;
+            }
+            exporterOptionsForm.XlsxDstPath = path;
         }
 
-        public static void RemExportType(ExportType type)
+        public static void SetOptionFormType(ExportType type)
         {
-            if (exporterTypes.Contains(type)) {
-                exporterTypes.Remove(type);
-            }
+            exporterOptionsForm.SetExportType(type);
+        }
+
+        public static void RemOptionFromType(ExportType type)
+        {
+            exporterOptionsForm.RemExportType(type);
+        }
+
+        public static OptionsForm GetOptionsFrom()
+        {
+            return exporterOptionsForm;
+        }
+
+        public static List<ExportType> GetOptionsFromTypes()
+        {
+            return exporterOptionsForm.ExporterList;
         }
 
         public static void SetExportOption(ExportType type, Options option)

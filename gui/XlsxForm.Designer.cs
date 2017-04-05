@@ -5,9 +5,6 @@ namespace xlsx2string
 {
     partial class XlsxForm
     {
-        // private string defaultPath = "";
-        private Options options = new Options();
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -274,6 +271,7 @@ namespace xlsx2string
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(778, 23);
             this.progressBar1.TabIndex = 9;
+            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
             // label3
             // 
@@ -311,7 +309,7 @@ namespace xlsx2string
             this.textBox3.TabIndex = 19;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // ExcelForm
+            // XlsxForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -322,7 +320,7 @@ namespace xlsx2string
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ExcelForm";
+            this.Name = "XlsxForm";
             this.Text = "xlsx2string";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

@@ -48,49 +48,92 @@ namespace xlsx2string
             return browser.SelectedPath;
         }
 
+        /// <summary>
+        /// 浏览输入文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            textBox3.Text = OnSelectedPath();
+            this.textBox3.Text = OnSelectedPath();
         }
 
+        /// <summary>
+        /// 浏览输出文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            textBox2.Text = OnSelectedPath();
+            this.textBox2.Text = OnSelectedPath();
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            List<string> list = Facade.ProcessCore(options);
-            if(list != null) {
-                foreach(string str in list) {
-                    listBox2.Items.Add(str);
-                }
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            List<ExportType> list = DataMemory.GetExporterTypes();
-            foreach(ExportType type in list) {
-                listBox1.Items.Add(type.ToString());
-            }
-        }
-
+        /// <summary>
+        /// 输入 路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-
+            TextBox box = sender as TextBox;
+            if (box == null) {
+                return;
+            }
+            DataMemory.SetOptionFormSrcPath(box.Text);
         }
 
+        /// <summary>
+        /// 导出 路径
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            TextBox box = sender as TextBox;
+            if (box == null) {
+                return;
+            }
+            DataMemory.SetOptionFormDstPath(box.Text);
+        }
+
+        /// <summary>
+        /// 检查表数据按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            OptionsForm form = DataMemory.GetOptionsFrom();
+            listBox2.Items.Add(form.XlsxSrcPath);
+        }
+
+        /// <summary>
+        /// 导出表格按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Facade.BeforeExporterOptionForm();
+            Facade.RunXlsxForm();
+            Facade.AfterExporterOptionForm();
+        }
+
+        /// <summary>
+        /// 检查表信息输出框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 导出表信息输出框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -104,9 +147,9 @@ namespace xlsx2string
             }
             ExportType type = check.Text.ToEnum<ExportType>();
             if (check.Checked) {
-                DataMemory.SetExporterType(type);
+                DataMemory.SetOptionFormType(type);
             } else {
-                DataMemory.RemExportType(type);
+                DataMemory.RemOptionFromType(type);
             }
         }
 
@@ -148,6 +191,16 @@ namespace xlsx2string
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
             OnCheckedChangeed(sender, e);
+        }
+
+        /// <summary>
+        /// 进度单机事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

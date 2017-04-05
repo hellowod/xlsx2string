@@ -98,6 +98,13 @@ namespace xlsx2string
             set;
         }
 
+        /// <summary>
+        /// 转换函数
+        /// </summary>
+        /// <param name="inputPath"></param>
+        /// <param name="outputPath"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static Options Convert(string inputPath, string outputPath, ExportType type)
         {
             Options option = new Options();
@@ -133,7 +140,6 @@ namespace xlsx2string
                 default:
                     break;
             }
-
             return option;
         }
     }

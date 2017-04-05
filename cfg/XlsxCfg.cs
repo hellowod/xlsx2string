@@ -4,6 +4,8 @@ namespace xlsx2string
 {
     public enum ExportType
     {
+        invalid,
+
         json,
         txt,
         csv,

@@ -9,63 +9,125 @@ namespace xlsx2string
 {
     public static class Facade
     {
-        static Facade()
-        {
-            IniRegister();
-        }
-
         /// <summary>
-        /// 初始化注册器
+        /// 处理检查选项参数信息
         /// </summary>
-        private static void IniRegister()
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public static void BeforeCheckerOptionForm()
         {
-            ReisterExporter(ExportType.json, new JsonExporter());
-            ReisterExporter(ExportType.lua, new LuaExporter());
-            ReisterExporter(ExportType.sql, new SQLExporter());
-            ReisterExporter(ExportType.txt, new TextExporter());
+            OptionsForm form = DataMemory.GetOptionsFrom();
 
-            ReisterExporter(ExportType.cpp, new CplusExporter());
-            ReisterExporter(ExportType.cs, new CsharpExporter());
-            ReisterExporter(ExportType.go, new GoLangExporter());
-            ReisterExporter(ExportType.java, new JavaExporter());
-        }
-
-        /// <summary>
-        /// 注册导出器
-        /// </summary>
-        private static void ReisterExporter(ExportType type, IExporter exporter)
-        {
-            if (exporter == null) {
+            if (form.XlsxSrcPath.Length <= 0) {
                 return;
             }
-            DataMemory.SetExporter(type, exporter);
+            if (!Directory.Exists(form.XlsxSrcPath)) {
+                return;
+            }
         }
 
-        public static List<string> ProcessCore(Options options)
+        /// <summary>
+        /// 检查运行器
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public static void RunCheckerXlsx()
         {
-            if (options.ExcelPath.Length <= 0) {
-                return null;
+            
+        }
+
+        /// <summary>
+        /// 处理检查选项参数信息
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public static void AfterCheckerOptionForm()
+        {
+            OptionsForm form = DataMemory.GetOptionsFrom();
+
+            if (form.XlsxSrcPath.Length <= 0) {
+                return;
             }
-            if (!Directory.Exists(options.ExcelPath)) {
-                return null;
+            if (!Directory.Exists(form.XlsxSrcPath)) {
+                return;
             }
-            string[] files = Directory.GetFiles(options.ExcelPath, "*.xlsx", SearchOption.AllDirectories);
+        }
+
+        /// <summary>
+        /// 处理导出选项参数前事件
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public static void BeforeExporterOptionForm()
+        {
+            OptionsForm optionForm = DataMemory.GetOptionsFrom();
+            List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
+
+            if(typeList.Count <= 0) {
+                return;
+            }
+            if (optionForm.XlsxSrcPath.Length <= 0) {
+                return;
+            }
+            if(optionForm.XlsxDstPath.Length <= 0) {
+                return;
+            }
+            if (!Directory.Exists(optionForm.XlsxSrcPath)) {
+                return;
+            }
+
+            string[] files = Directory.GetFiles(optionForm.XlsxSrcPath, "*.xlsx", SearchOption.AllDirectories);
             if (files.Length <= 0) {
-                return null;
+                return;
             }
-            List<string> sb = new List<string>();
-            foreach (string file in files) {
-                options.ExcelPath = file;
-                sb.Add(file);
+            // 注意xlsx文件命名规则： 标号_英文名_中文名
+            foreach (string srcFile in files) {
+                string fileName = string.Empty;
+                string xlsxName = Path.GetFileNameWithoutExtension(srcFile);
+                string[] xlsxNameArray = xlsxName.Split('_');
+                if(xlsxNameArray.Length > 1) {
+                    fileName = xlsxNameArray[1];
+                } else {
+                    fileName = xlsxNameArray[0];
+                }
+                foreach(ExportType type in typeList) {
+                    string outFileName = string.Format("{0}.{1}", fileName, type);
+                    string dstFile = Path.Combine(optionForm.XlsxDstPath, outFileName);
+                    Options option = Options.Convert(srcFile, dstFile, type);
+                    DataMemory.SetExportOption(type, option);
+                }
             }
-            return sb;
+        }
+
+        /// <summary>
+        /// 根据窗口参数，执行Excel数据导出工作
+        /// </summary>
+        /// <param name="options">命令行参数</param>
+        public static void RunXlsxForm()
+        {
+            List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
+            foreach(ExportType type in typeList) {
+                List<Options> optionList = DataMemory.GetExportOptions(type);
+                foreach(Options option in optionList) {
+                    CmdXlsx(type, option);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 处理导出选项参数后事件
+        /// </summary>
+        public static void AfterExporterOptionForm()
+        {
+
         }
 
         /// <summary>
         /// 根据命令行参数，执行Excel数据导出工作
         /// </summary>
-        /// <param name="options">命令行参数</param>
-        public static void ParseXlsx(Options options)
+        /// <param name="type"></param>
+        /// <param name="options"></param>
+        public static void CmdXlsx(ExportType type, Options options)
         {
             // 加载Excel文件
             using (FileStream excelFile = File.Open(options.ExcelPath, FileMode.Open, FileAccess.Read)) {
@@ -75,13 +137,13 @@ namespace xlsx2string
 
                 // 数据检测
                 if (datSet.Tables.Count < 1) {
-                    throw new Exception("Excel文件中没有找到Sheet: " + options.ExcelPath);
+                    throw new Exception("Excel not found sheet: " + options.ExcelPath);
                 }
 
                 // 取得数据
                 DataTable sheet = datSet.Tables[0];
                 if (sheet.Rows.Count <= 0) {
-                    throw new Exception("Excel Sheet中没有数据: " + options.ExcelPath);
+                    throw new Exception("Excel sheet not data: " + options.ExcelPath);
                 }
 
                 // 确定编码
@@ -96,6 +158,12 @@ namespace xlsx2string
                     }
                 }
 
+                IExporter exporter = DataMemory.GetExporter(type);
+                if(exporter != null) {
+                    exporter.ToFile(sheet, options, coding);
+                }
+
+                /*
                 // 导出JSON文件
                 if (options.JsonPath != null && options.JsonPath.Length > 0) {
                     JsonExporter exporter = new JsonExporter(sheet, options.HeaderRows, options.Lowcase);
@@ -116,6 +184,7 @@ namespace xlsx2string
                     exporter.ClassComment = string.Format("// Generate From {0}", excelName);
                     exporter.SaveToFile(options.CSharpPath, coding);
                 }
+                */
             }
         }
     }
