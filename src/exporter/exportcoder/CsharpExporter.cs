@@ -19,7 +19,7 @@ namespace xlsx2string
     /// </summary>
     public class CsharpExporter : ExporterBase
     {
-        struct FieldDef
+        private struct FieldDef
         {
             public string name;
             public string type;
@@ -34,26 +34,21 @@ namespace xlsx2string
             set;
         }
 
-        public override void SaveToFile(string filePath, Encoding encoding)
-        {
-            
-        }
-
         public override void Init()
         {
-            if (Sheet.Rows.Count < 2) {
+            if (Sheet.Rows.Count < 3) {
                 return;
             }
 
             fieldList = new List<FieldDef>();
             DataRow typeRow = Sheet.Rows[0];
-            DataRow commentRow = Sheet.Rows[1];
+            DataRow commRow = Sheet.Rows[1];
 
             foreach (DataColumn column in Sheet.Columns) {
                 FieldDef field;
                 field.name = column.ToString();
                 field.type = typeRow[column].ToString();
-                field.comment = commentRow[column].ToString();
+                field.comment = commRow[column].ToString();
 
                 fieldList.Add(field);
             }
@@ -62,7 +57,7 @@ namespace xlsx2string
         public override void Export()
         {
             if (fieldList == null) {
-                throw new Exception("CSDefineGenerator内部数据为空。");
+                throw new Exception("Filed csharp is null.");
             }
 
             string defName = GetFileName(Option.CSharpPath);
@@ -70,7 +65,7 @@ namespace xlsx2string
             // 创建代码字符串
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("//");
-            sb.AppendLine("// Auto Generated Code By excel2json");
+            sb.AppendLine("// Auto Generated Code By Text");
             sb.AppendLine("//");
             sb.AppendLine();
             if (this.ClassComment != null) {
@@ -80,8 +75,15 @@ namespace xlsx2string
             sb.AppendLine();
 
             foreach (FieldDef field in fieldList) {
-                sb.AppendFormat("\tpublic {0} {1}; // {2}", field.type, field.name, field.comment);
+                sb.AppendFormat("\t// {0}", field.comment);
                 sb.AppendLine();
+                sb.AppendFormat("\tpublic {0} {1}", field.type, field.name);
+                sb.AppendLine(" {");
+                sb.AppendFormat("\t\tget;");
+                sb.AppendLine();
+                sb.AppendFormat("\t\tset;");
+                sb.AppendLine();
+                sb.AppendLine("\t}");
             }
 
             sb.Append('}');
