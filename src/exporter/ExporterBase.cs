@@ -37,6 +37,9 @@ namespace xlsx2string
             if (!Directory.Exists(outPath)) {
                 Directory.CreateDirectory(outPath);
             }
+            if (File.Exists(path)) {
+                File.Delete(path);
+            }
 
             using (FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write)) {
                 using (TextWriter writer = new StreamWriter(file, coding)) {
