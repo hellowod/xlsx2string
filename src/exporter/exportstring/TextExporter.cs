@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Text;
 
 /***
@@ -14,12 +15,22 @@ namespace xlsx2string
     {
         public override void Export()
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            foreach (DataRow row in Sheet.Rows) {
+                object[] columns = row.ItemArray;
+                sb.Append(columns[0]);
+                foreach (object obj in columns) {
+                    sb.AppendFormat("\t{0}", obj);
+                }
+                sb.AppendLine();
+            }
+            // 写文件
+            this.WriteFile(Option.TxtPath, sb.ToString(), Coding);
         }
 
         public override void Init()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void SaveToFile(string filePath, Encoding encoding)
