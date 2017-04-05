@@ -10,7 +10,7 @@ namespace xlsx2string
     /// 根据表头，生成C#类定义数据结构
     /// 表头使用三行定义：字段名称、字段类型、注释
     /// </summary>
-    public class CsharpExporter : IExporter
+    public class CsharpExporter : ExporterBase, IExporter
     {
         struct FieldDef
         {
@@ -19,7 +19,7 @@ namespace xlsx2string
             public string comment;
         }
 
-        List<FieldDef> m_fieldList;
+        private List<FieldDef> fieldList;
 
         public String ClassComment
         {
@@ -45,35 +45,9 @@ namespace xlsx2string
             set;
         }
 
-        public CsharpExporter()
-        {
-
-        }
-
-        public CsharpExporter(DataTable sheet)
-        {
-            // First Row as Column Name
-            if (sheet.Rows.Count < 2) {
-                return;
-            }
-
-            m_fieldList = new List<FieldDef>();
-            DataRow typeRow = sheet.Rows[0];
-            DataRow commentRow = sheet.Rows[1];
-
-            foreach (DataColumn column in sheet.Columns) {
-                FieldDef field;
-                field.name = column.ToString();
-                field.type = typeRow[column].ToString();
-                field.comment = commentRow[column].ToString();
-
-                m_fieldList.Add(field);
-            }
-        }
-
         public void SaveToFile(string filePath, Encoding encoding)
         {
-            if (m_fieldList == null) {
+            if (fieldList == null) {
                 throw new Exception("CSDefineGenerator内部数据为空。");
             }
 
@@ -90,7 +64,7 @@ namespace xlsx2string
             sb.AppendFormat("public class {0}\r\n{{", defName);
             sb.AppendLine();
 
-            foreach (FieldDef field in m_fieldList) {
+            foreach (FieldDef field in fieldList) {
                 sb.AppendFormat("\tpublic {0} {1}; // {2}", field.type, field.name, field.comment);
                 sb.AppendLine();
             }
@@ -108,12 +82,55 @@ namespace xlsx2string
 
         public void Init()
         {
-            throw new NotImplementedException();
+            if (Sheet.Rows.Count < 2) {
+                return;
+            }
+
+            fieldList = new List<FieldDef>();
+            DataRow typeRow = Sheet.Rows[0];
+            DataRow commentRow = Sheet.Rows[1];
+
+            foreach (DataColumn column in Sheet.Columns) {
+                FieldDef field;
+                field.name = column.ToString();
+                field.type = typeRow[column].ToString();
+                field.comment = commentRow[column].ToString();
+
+                fieldList.Add(field);
+            }
         }
 
         public void Export()
         {
-            throw new NotImplementedException();
+            if (fieldList == null) {
+                throw new Exception("CSDefineGenerator内部数据为空。");
+            }
+
+            string defName = GetFileName(Option.CSharpPath);
+
+            // 创建代码字符串
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("//");
+            sb.AppendLine("// Auto Generated Code By excel2json");
+            sb.AppendLine("//");
+            sb.AppendLine();
+            if (this.ClassComment != null) {
+                sb.AppendLine(this.ClassComment);
+            }
+            sb.AppendFormat("public class {0}\r\n{{", defName);
+            sb.AppendLine();
+
+            foreach (FieldDef field in fieldList) {
+                sb.AppendFormat("\tpublic {0} {1}; // {2}", field.type, field.name, field.comment);
+                sb.AppendLine();
+            }
+
+            sb.Append('}');
+            sb.AppendLine();
+            sb.AppendLine("// End of Auto Generated Code");
+
+            // 写文件
+            this.WriteFile(Option.CSharpPath, sb.ToString(), Coding);
         }
     }
 }

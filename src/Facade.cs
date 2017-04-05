@@ -9,6 +9,8 @@ namespace xlsx2string
 {
     public static class Facade
     {
+        public static int ExportCount = 0;
+
         /// <summary>
         /// 处理检查选项参数信息
         /// </summary>
@@ -60,6 +62,8 @@ namespace xlsx2string
         /// <returns></returns>
         public static void BeforeExporterOptionForm()
         {
+            ExportCount = 0;
+
             OptionsForm optionForm = DataMemory.GetOptionsFrom();
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
 
@@ -95,6 +99,7 @@ namespace xlsx2string
                     string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
                     Options option = Options.Convert(srcFile, dstFile, type);
                     DataMemory.SetExportOption(type, option);
+                    ExportCount++;
                 }
             }
         }
@@ -160,29 +165,6 @@ namespace xlsx2string
 
                 // 执行导出器 
                 RunExporter(type, sheet, option, coding);
-
-                /*
-                // 导出JSON文件
-                if (options.JsonPath != null && options.JsonPath.Length > 0) {
-                    JsonExporter exporter = new JsonExporter(sheet, options.HeaderRows, options.Lowcase);
-                    exporter.SaveToFile(options.JsonPath, coding);
-                }
-
-                // 导出SQL文件
-                if (options.SQLPath != null && options.SQLPath.Length > 0) {
-                    SQLExporter exporter = new SQLExporter(sheet, options.HeaderRows);
-                    exporter.SaveToFile(options.SQLPath, coding);
-                }
-
-                // 生成C#定义文件
-                if (options.CSharpPath != null && options.CSharpPath.Length > 0) {
-                    string excelName = Path.GetFileName(options.ExcelPath);
-
-                    CsharpExporter exporter = new CsharpExporter(sheet);
-                    exporter.ClassComment = string.Format("// Generate From {0}", excelName);
-                    exporter.SaveToFile(options.CSharpPath, coding);
-                }
-                */
             }
         }
 
