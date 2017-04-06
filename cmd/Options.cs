@@ -91,13 +91,6 @@ namespace xlsx2string
             set;
         }
 
-        [Option('c', "encoding", Required = false, DefaultValue = "utf8-nobom", HelpText = "指定编码的名称.")]
-        public string Encoding
-        {
-            get;
-            set;
-        }
-
         [Option('l', "lowcase", Required = false, DefaultValue = false, HelpText = "字段名称自动转换为小写")]
         public bool Lowcase
         {

@@ -19,6 +19,40 @@ namespace xlsx2string
         public static int ExportCount = 0;
 
         /// <summary>
+        /// 检查用户输入信息
+        /// </summary>
+        public static string ParseCheckerUserInput()
+        {
+            string error = null;
+            OptionsForm optionForm = DataMemory.GetOptionsFrom();
+            if (optionForm == null) {
+                error = "工具底层异常,请程序检查！";
+            } else if (string.IsNullOrEmpty(optionForm.XlsxSrcPath)) {
+                error = "Xlsx表格路径不能为空！";
+            }
+            return error;
+
+        }
+
+        /// <summary>
+        /// 检查用户输入信息
+        /// </summary>
+        public static string ParseExportUserInput()
+        {
+            string error = ParseCheckerUserInput();
+            if(!string.IsNullOrEmpty(error)) {
+                return error;
+            }
+            OptionsForm optionForm = DataMemory.GetOptionsFrom();
+            if (string.IsNullOrEmpty(optionForm.XlsxDstPath)) {
+                error = "文本导出路径不能为空！";
+            } else if (optionForm.ExporterList.Count <= 0) {
+                error = "请至少选择一种导出类型！";
+            }
+            return error;
+        }
+
+        /// <summary>
         /// 处理检查选项参数信息
         /// </summary>
         /// <param name="form"></param>
@@ -119,7 +153,7 @@ namespace xlsx2string
         {
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
             foreach(ExportType type in typeList) {
-                List<Options> optionList = DataMemory.GetExportOptionsByType(type);
+                List<Options> optionList = DataMemory.GetExportOptions(type);
                 foreach(Options option in optionList) {
                     CmdXlsx(type, option);
                 }
@@ -141,37 +175,48 @@ namespace xlsx2string
         /// <param name="option"></param>
         public static void CmdXlsx(ExportType type, Options option)
         {
-            // 加载Excel文件
-            using (FileStream excelFile = File.Open(option.ExcelPath, FileMode.Open, FileAccess.Read)) {
-                IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(excelFile);
-                excelReader.IsFirstRowAsColumnNames = true;
-                DataSet datSet = excelReader.AsDataSet();
-
-                // 数据检测
-                if (datSet.Tables.Count < 1) {
-                    throw new Exception("Excel not found sheet: " + option.ExcelPath);
+            try {
+                DataTable sheet = LoadSheet(option.ExcelPath);
+                if (sheet != null) {
+                    // 确定编码
+                    Encoding coding = new UTF8Encoding(false);
+                    // 执行导出器 
+                    RunExporter(type, sheet, option, coding);
                 }
+            } catch (System.Exception ex) {
+                throw new Exception("Excel export error: " + ex.Message);
+            }
+        }
 
-                // 取得数据
-                DataTable sheet = datSet.Tables[0];
-                if (sheet.Rows.Count <= 0) {
-                    throw new Exception("Excel sheet not data: " + option.ExcelPath);
-                }
+        /// <summary>
+        /// 加载表单（使用缓存机制提高效率）
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static DataTable LoadSheet(string path)
+        {
+            DataTable sheet = null;
 
-                // 确定编码
-                Encoding coding = new UTF8Encoding(false);
-                if (option.Encoding != "utf8-nobom") {
-                    foreach (EncodingInfo info in Encoding.GetEncodings()) {
-                        Encoding e = info.GetEncoding();
-                        if (e.EncodingName == option.Encoding) {
-                            coding = e;
-                            break;
-                        }
+            sheet = DataMemory.GetSheet(path);
+            if (sheet != null) {
+                return sheet;
+            } else {
+                using (FileStream excelFile = File.Open(path, FileMode.Open, FileAccess.Read)) {
+                    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(excelFile);
+                    excelReader.IsFirstRowAsColumnNames = true;
+                    DataSet datSet = excelReader.AsDataSet();
+
+                    if (datSet.Tables.Count < 1) {
+                        throw new Exception("Excel not found sheet: " + path);
+                    }
+
+                    sheet = datSet.Tables[0];
+                    if (sheet.Rows.Count <= 0) {
+                        throw new Exception("Excel sheet not data: " + path);
                     }
                 }
-
-                 // 执行导出器 
-                RunExporter(type, sheet, option, coding);
+                DataMemory.SetSheet(path, sheet);
+                return sheet;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 /***
  * DataMemory.cs
@@ -15,9 +16,14 @@ namespace xlsx2string
         private static Dictionary<String, String> checkerInfoCached;
         private static Dictionary<String, String> exporterInfoCached;
 
+        // 导出器
         private static Dictionary<ExportType, IExporter> exporterCached;
+        // 导出对象
         private static Dictionary<ExportType, List<Options>> exporterOption;
+        // 导出设置参数
         private static OptionsForm exporterOptionsForm;
+        // 表单数据缓存
+        private static Dictionary<string, DataTable> sheetCached;
 
         static DataMemory()
         {
@@ -28,9 +34,14 @@ namespace xlsx2string
             exporterOption = new Dictionary<ExportType, List<Options>>();
             exporterOptionsForm = new OptionsForm();
 
+            sheetCached = new Dictionary<string, DataTable>();
+
             IniMemory();
         }
 
+        /// <summary>
+        /// 初始化缓存
+        /// </summary>
         private static void IniMemory()
         {
             IniExporter();
@@ -52,6 +63,11 @@ namespace xlsx2string
             SetExporter(ExportType.java, new JavaExporter());
         }
 
+        /// <summary>
+        /// 设置导出器
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="exporter"></param>
         private static void SetExporter(ExportType type, IExporter exporter)
         {
             IExporter tmpExporter = null;
@@ -61,6 +77,11 @@ namespace xlsx2string
             exporterCached.Add(type, exporter);
         }
 
+        /// <summary>
+        /// 获得导出容器
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static IExporter GetExporter(ExportType type)
         {
             IExporter exporter = null;
@@ -94,26 +115,47 @@ namespace xlsx2string
             exporterOptionsForm.XlsxDstPath = path;
         }
 
+        /// <summary>
+        /// 设置导出类型
+        /// </summary>
+        /// <param name="type"></param>
         public static void SetOptionFormType(ExportType type)
         {
             exporterOptionsForm.SetExportType(type);
         }
 
+        /// <summary>
+        /// 移除导出类型
+        /// </summary>
+        /// <param name="type"></param>
         public static void RemOptionFromType(ExportType type)
         {
             exporterOptionsForm.RemExportType(type);
         }
 
+        /// <summary>
+        /// 获得导出设置参数
+        /// </summary>
+        /// <returns></returns>
         public static OptionsForm GetOptionsFrom()
         {
             return exporterOptionsForm;
         }
 
+        /// <summary>
+        /// 获得所有导出类型
+        /// </summary>
+        /// <returns></returns>
         public static List<ExportType> GetOptionsFromTypes()
         {
             return exporterOptionsForm.ExporterList;
         }
 
+        /// <summary>
+        /// 设置导出Options
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="option"></param>
         public static void SetExportOption(ExportType type, Options option)
         {
             List<Options> list = null;
@@ -124,7 +166,12 @@ namespace xlsx2string
             list.Add(option);
         }
 
-        public static List<Options> GetExportOptionsByType(ExportType type)
+        /// <summary>
+        /// 获得导出列表根据类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static List<Options> GetExportOptions(ExportType type)
         {
             List<Options> list = null;
             if (!exporterOption.TryGetValue(type, out list)) {
@@ -133,9 +180,32 @@ namespace xlsx2string
             return list;
         }
 
-        public static Dictionary<ExportType, List<Options>> GetExportOptions()
+        public static void SetSheet(string key, DataTable data)
         {
-            return exporterOption;
+            DataTable table = null;
+            if (!sheetCached.TryGetValue(key, out table)) {
+                sheetCached.Add(key, data);
+            }
+        }
+
+        public static DataTable GetSheet(string key)
+        {
+            DataTable table = null;
+            if (!sheetCached.TryGetValue(key, out table)) {
+                return null;
+            }
+            return table;
+        }
+
+        /// <summary>
+        /// 清除导出信息
+        /// </summary>
+        public static void Clear()
+        {
+            checkerInfoCached.Clear();
+            exporterInfoCached.Clear();
+
+            sheetCached.Clear();
         }
     }
 }

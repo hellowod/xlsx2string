@@ -103,8 +103,11 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
-            OptionsForm form = DataMemory.GetOptionsFrom();
-            listBox2.Items.Add(form.XlsxSrcPath);
+            string error = Facade.ParseCheckerUserInput();
+            if(error != null) {
+                MessageBox.Show(error);
+                return;
+            }
         }
 
         /// <summary>
@@ -114,6 +117,11 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            string error = Facade.ParseExportUserInput();
+            if (error != null) {
+                MessageBox.Show(error);
+                return;
+            }
             Facade.BeforeExporterOptionForm();
             Facade.RunXlsxForm();
             Facade.AfterExporterOptionForm();
