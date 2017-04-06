@@ -130,7 +130,11 @@ namespace xlsx2string
 
         private void OnChangedProgress(int value)
         {
-            progressBar1.Value = value;
+            if(value > 100) {
+                progressBar1.Value = 100;
+            } else {
+                progressBar1.Value = value;
+            }
         }
 
         /// <summary>

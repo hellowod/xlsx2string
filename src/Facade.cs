@@ -156,13 +156,14 @@ namespace xlsx2string
             }
         }
 
+        private static Thread thread = null;
         /// <summary>
         /// 根据窗口参数，执行Excel数据导出工作
         /// </summary>
         /// <param name="options">命令行参数</param>
         public static void RunXlsxForm()
         {
-            Thread thread = new Thread(new ThreadStart(StartThread));
+            thread = new Thread(new ThreadStart(StartThread));
             thread.Start();
         }
 
@@ -182,6 +183,8 @@ namespace xlsx2string
                     Thread.Sleep(10);
                 }
             }
+            thread.Abort();
+            thread = null;
         }
 
         /// <summary>
