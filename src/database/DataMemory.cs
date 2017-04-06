@@ -124,13 +124,18 @@ namespace xlsx2string
             list.Add(option);
         }
 
-        public static List<Options> GetExportOptions(ExportType type)
+        public static List<Options> GetExportOptionsByType(ExportType type)
         {
             List<Options> list = null;
             if (!exporterOption.TryGetValue(type, out list)) {
                 return null;
             }
             return list;
+        }
+
+        public static Dictionary<ExportType, List<Options>> GetExportOptions()
+        {
+            return exporterOption;
         }
     }
 }

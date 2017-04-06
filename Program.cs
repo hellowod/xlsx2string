@@ -11,6 +11,9 @@ using System.Runtime.InteropServices;
  */
 namespace xlsx2string
 {
+    /// <summary>
+    /// 启动程序
+    /// </summary>
     public class Program
     {
         private const int SW_HIDE = 0;

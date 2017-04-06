@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 /***
  * ExporterBase.cs
@@ -11,8 +12,17 @@ using System.Text;
  */
 namespace xlsx2string
 {
+    public struct FieldDef
+    {
+        public string name;
+        public string type;
+        public string comment;
+    }
+
     public abstract class ExporterBase : IExporter
     {
+        private List<FieldDef> fieldList;
+
         public DataTable Sheet
         {
             get;
@@ -29,6 +39,13 @@ namespace xlsx2string
         {
             get;
             set;
+        }
+
+        public List<FieldDef> FieldList
+        {
+            get {
+                return fieldList;
+            }
         }
 
         protected virtual void WriteFile(string path, string context, Encoding coding)
@@ -53,9 +70,33 @@ namespace xlsx2string
             return Path.GetFileNameWithoutExtension(path);
         }
 
+        /// <summary>
+        /// 处理表前三行作为Filed
+        /// </summary>
+        protected virtual void ParseFiledList()
+        {
+            if (Sheet.Rows.Count < 2) {
+
+                return;
+            }
+
+            fieldList = new List<FieldDef>();
+            DataRow typeRow = Sheet.Rows[0];
+            DataRow commRow = Sheet.Rows[1];
+
+            foreach (DataColumn column in Sheet.Columns) {
+                FieldDef field;
+                field.name = column.ToString();
+                field.type = typeRow[column].ToString();
+                field.comment = commRow[column].ToString();
+
+                fieldList.Add(field);
+            }
+        }
+
         public virtual void Init()
         {
-            
+            ParseFiledList();
         }
 
         public virtual void Export()
@@ -66,6 +107,11 @@ namespace xlsx2string
         public virtual void SaveToFile(string filePath, Encoding encoding)
         {
             
+        }
+
+        public void Clear()
+        {
+           
         }
     }
 }

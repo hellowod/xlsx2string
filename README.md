@@ -2,6 +2,10 @@
 
 该工具提供简单高效的命令行和图形界面的方式导出xlsx格式为文本数据。
 
+## 窗口模式
+
+![form](/res/form.png)
+
 ## 命令模式
 
 ```
@@ -34,7 +38,3 @@ Copyright ? abaojin 2017
 
   -l, --lowcase     (Default: False) 字段名称自动转换为小写
 ```
-
-## 窗口模式
-
-![form](/res/form.png)

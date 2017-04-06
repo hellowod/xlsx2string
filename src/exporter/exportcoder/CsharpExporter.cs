@@ -19,44 +19,15 @@ namespace xlsx2string
     /// </summary>
     public class CsharpExporter : ExporterBase
     {
-        private struct FieldDef
-        {
-            public string name;
-            public string type;
-            public string comment;
-        }
-
-        private List<FieldDef> fieldList;
-
         public String ClassComment
         {
             get;
             set;
         }
 
-        public override void Init()
-        {
-            if (Sheet.Rows.Count < 3) {
-                return;
-            }
-
-            fieldList = new List<FieldDef>();
-            DataRow typeRow = Sheet.Rows[0];
-            DataRow commRow = Sheet.Rows[1];
-
-            foreach (DataColumn column in Sheet.Columns) {
-                FieldDef field;
-                field.name = column.ToString();
-                field.type = typeRow[column].ToString();
-                field.comment = commRow[column].ToString();
-
-                fieldList.Add(field);
-            }
-        }
-
         public override void Export()
         {
-            if (fieldList == null) {
+            if (FieldList == null) {
                 throw new Exception("Filed csharp is null.");
             }
 
@@ -74,7 +45,7 @@ namespace xlsx2string
             sb.AppendFormat("public class {0}\r\n{{", defName);
             sb.AppendLine();
 
-            foreach (FieldDef field in fieldList) {
+            foreach (FieldDef field in FieldList) {
                 sb.AppendFormat("\t// {0}", field.comment);
                 sb.AppendLine();
                 sb.AppendFormat("\tpublic {0} {1}", field.type, field.name);
@@ -91,7 +62,7 @@ namespace xlsx2string
             sb.AppendLine("// End of Auto Generated Code");
 
             // 写文件
-            this.WriteFile(Option.CSharpPath, sb.ToString(), Coding);
+            WriteFile(Option.CSharpPath, sb.ToString(), Coding);
         }
     }
 }

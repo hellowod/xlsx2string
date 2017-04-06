@@ -119,7 +119,7 @@ namespace xlsx2string
         {
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
             foreach(ExportType type in typeList) {
-                List<Options> optionList = DataMemory.GetExportOptions(type);
+                List<Options> optionList = DataMemory.GetExportOptionsByType(type);
                 foreach(Options option in optionList) {
                     CmdXlsx(type, option);
                 }
@@ -135,7 +135,7 @@ namespace xlsx2string
         }
 
         /// <summary>
-        /// 根据命令行参数，执行Excel数据导出工作
+        /// 根据命令行参数，执行Excel数据导出工作(函数性能需要优化)
         /// </summary>
         /// <param name="type"></param>
         /// <param name="option"></param>
@@ -170,7 +170,7 @@ namespace xlsx2string
                     }
                 }
 
-                // 执行导出器 
+                 // 执行导出器 
                 RunExporter(type, sheet, option, coding);
             }
         }
@@ -194,6 +194,7 @@ namespace xlsx2string
 
             exporter.Init();
             exporter.Export();
+            exporter.Clear();
         }
     }
 }

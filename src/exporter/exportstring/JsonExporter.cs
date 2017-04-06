@@ -36,6 +36,8 @@ namespace xlsx2string
 
         public override void Init()
         {
+            base.Init();
+
             if (Sheet.Columns.Count <= 0) {
                 return;
             }
