@@ -105,7 +105,7 @@ namespace xlsx2string
         {
             string error = Facade.ParseCheckerUserInput();
             if(error != null) {
-                MessageBox.Show(error);
+                MessageBox.Show(this, error);
                 return;
             }
         }
@@ -119,12 +119,18 @@ namespace xlsx2string
         {
             string error = Facade.ParseExportUserInput();
             if (error != null) {
-                MessageBox.Show(error);
+                MessageBox.Show(this, error);
                 return;
             }
+            Facade.SetOnProgressEvent(OnChangedProgress);
             Facade.BeforeExporterOptionForm();
             Facade.RunXlsxForm();
             Facade.AfterExporterOptionForm();
+        }
+
+        private void OnChangedProgress(int value)
+        {
+            progressBar1.Value = value;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 /***
  * Facade.cs
@@ -16,7 +17,17 @@ namespace xlsx2string
 {
     public static class Facade
     {
-        public static int ExportCount = 0;
+        private static int ExportCount = 0;
+        private static Action<int> m_onProgressEvent;
+
+        /// <summary>
+        /// 设置进度事件
+        /// </summary>
+        /// <param name="evt"></param>
+        public static void SetOnProgressEvent(Action<int> evt)
+        {
+            m_onProgressEvent = evt;
+        }
 
         /// <summary>
         /// 检查用户输入信息
@@ -151,11 +162,24 @@ namespace xlsx2string
         /// <param name="options">命令行参数</param>
         public static void RunXlsxForm()
         {
+            Thread thread = new Thread(new ThreadStart(StartThread));
+            thread.Start();
+        }
+
+        private static void StartThread()
+        {
+            int count = 0;
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
-            foreach(ExportType type in typeList) {
+            foreach (ExportType type in typeList) {
                 List<Options> optionList = DataMemory.GetExportOptions(type);
-                foreach(Options option in optionList) {
+                foreach (Options option in optionList) {
                     CmdXlsx(type, option);
+                    count++;
+                    float value = (float)count / ExportCount;
+                    if(m_onProgressEvent != null) {
+                        m_onProgressEvent((int)(value * 100));
+                    }
+                    Thread.Sleep(10);
                 }
             }
         }
