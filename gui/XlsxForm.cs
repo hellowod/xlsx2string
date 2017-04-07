@@ -17,6 +17,7 @@ namespace xlsx2string
         {
             this.MaximizeBox = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.InitializeComponent();
         }
 
@@ -114,8 +115,7 @@ namespace xlsx2string
             }
             
             CheckeCallbackArgv argv = new CheckeCallbackArgv();
-            argv.OnProgressChanged = OnProgressChanged;
-            argv.OnRunChanged = OnRunChanged;
+            argv.OnRunChanged = OnRunCheckerChanged;
 
             Facade.BeforeCheckerOptionForm();
             this.BeforeCheckerForm();
@@ -126,12 +126,14 @@ namespace xlsx2string
 
         private void BeforeCheckerForm()
         {
-
+            button5.Enabled = false;
+            textBox1.Text = "";
+            textBox1.Refresh();
         }
 
         private void AfterCheckerForm()
         {
-
+            button5.Enabled = true;
         }
 
         /// <summary>
@@ -153,7 +155,7 @@ namespace xlsx2string
 
             ExprotCallbackArgv argv = new ExprotCallbackArgv();
             argv.OnProgressChanged = OnProgressChanged;
-            argv.OnRunChanged = OnRunChanged;
+            argv.OnRunChanged = OnRunExporterChanged;
 
             Facade.BeforeExporterOptionForm();
             this.BeforeExporterForm();
@@ -189,7 +191,12 @@ namespace xlsx2string
             progressBar1.Value = value;
         }
 
-        private void OnRunChanged(string value)
+        private void OnRunCheckerChanged(string value)
+        {
+            textBox1.AppendText(string.Format("{0}   {1}\n", DateTime.Now.ToString("HH:mm:ss"), value));
+        }
+
+        private void OnRunExporterChanged(string value)
         {
             textBox4.AppendText(string.Format("{0}   {1}   ok\n", DateTime.Now.ToString("HH:mm:ss"), value));
         }

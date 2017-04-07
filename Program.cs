@@ -48,7 +48,7 @@ namespace xlsx2string
 
             if (parser.ParseArgumentsStrict(args, options, () => Environment.Exit(-1))) {
                 try {
-                    // Facade.RunXlsx(options);
+                    //Facade.RunXlsx(options);
                 } catch (Exception ex) {
                     Console.WriteLine("Error: " + ex.Message);
                 }

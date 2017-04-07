@@ -133,7 +133,7 @@ namespace xlsx2string
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Location = new System.Drawing.Point(12, 242);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(821, 234);
+            this.groupBox2.Size = new System.Drawing.Size(821, 273);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "导出表格";
@@ -141,7 +141,7 @@ namespace xlsx2string
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(528, 206);
+            this.checkBox8.Location = new System.Drawing.Point(526, 242);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(36, 16);
             this.checkBox8.TabIndex = 20;
@@ -152,7 +152,7 @@ namespace xlsx2string
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(462, 206);
+            this.checkBox7.Location = new System.Drawing.Point(460, 242);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(36, 16);
             this.checkBox7.TabIndex = 19;
@@ -163,7 +163,7 @@ namespace xlsx2string
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(398, 206);
+            this.checkBox6.Location = new System.Drawing.Point(396, 242);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(42, 16);
             this.checkBox6.TabIndex = 18;
@@ -184,7 +184,7 @@ namespace xlsx2string
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(341, 207);
+            this.checkBox5.Location = new System.Drawing.Point(339, 243);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(42, 16);
             this.checkBox5.TabIndex = 16;
@@ -195,7 +195,7 @@ namespace xlsx2string
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(269, 207);
+            this.checkBox4.Location = new System.Drawing.Point(267, 243);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(42, 16);
             this.checkBox4.TabIndex = 15;
@@ -206,7 +206,7 @@ namespace xlsx2string
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(206, 207);
+            this.checkBox3.Location = new System.Drawing.Point(204, 243);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(42, 16);
             this.checkBox3.TabIndex = 14;
@@ -217,7 +217,7 @@ namespace xlsx2string
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(149, 207);
+            this.checkBox2.Location = new System.Drawing.Point(147, 243);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(42, 16);
             this.checkBox2.TabIndex = 13;
@@ -228,7 +228,7 @@ namespace xlsx2string
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 210);
+            this.label4.Location = new System.Drawing.Point(18, 246);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 12;
@@ -237,7 +237,7 @@ namespace xlsx2string
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(95, 207);
+            this.checkBox1.Location = new System.Drawing.Point(93, 243);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(48, 16);
             this.checkBox1.TabIndex = 11;
@@ -297,7 +297,7 @@ namespace xlsx2string
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox1.Size = new System.Drawing.Size(591, 124);
             this.textBox1.TabIndex = 19;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -310,7 +310,7 @@ namespace xlsx2string
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(591, 95);
+            this.textBox4.Size = new System.Drawing.Size(591, 120);
             this.textBox4.TabIndex = 21;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -318,7 +318,8 @@ namespace xlsx2string
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 488);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(850, 527);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label5);

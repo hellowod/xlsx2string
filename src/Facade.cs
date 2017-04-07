@@ -58,14 +58,7 @@ namespace xlsx2string
         /// <returns></returns>
         public static void BeforeCheckerOptionForm()
         {
-            OptionsForm form = DataMemory.GetOptionsFrom();
-
-            if (form.XlsxSrcPath.Length <= 0) {
-                return;
-            }
-            if (!Directory.Exists(form.XlsxSrcPath)) {
-                return;
-            }
+            
         }
 
         /// <summary>
@@ -75,7 +68,46 @@ namespace xlsx2string
         /// <returns></returns>
         public static void RunCheckerXlsx(CheckeCallbackArgv argv)
         {
-            
+            if (argv == null) {
+                throw new Exception("Run xlsx form argv is null.");
+            }
+
+            if (argv.OnRunChanged != null) {
+                argv.OnRunChanged("=================检查开始=================");
+            }
+
+            OptionsForm optionForm = DataMemory.GetOptionsFrom();
+            if (optionForm.XlsxSrcPath.Length <= 0) {
+                return;
+            }
+            if (!Directory.Exists(optionForm.XlsxSrcPath)) {
+                return;
+            }
+
+            string[] files = Directory.GetFiles(optionForm.XlsxSrcPath, "*.xlsx", SearchOption.AllDirectories);
+            if (files.Length <= 0) {
+                return;
+            }
+            // 注意xlsx文件命名规则： 标号_英文名_中文名
+            foreach (string file in files) {
+                string fileName = string.Empty;
+                string xlsxOutExtName = Path.GetFileNameWithoutExtension(file);
+                string xlsxWithExtName = Path.GetFileName(file);
+                string[] xlsxNameArray = xlsxOutExtName.Split('_');
+                if (xlsxNameArray.Length <= 1) {
+                    if(argv.OnRunChanged != null) {
+                        argv.OnRunChanged(string.Format("{0}    name error", xlsxWithExtName));
+                    }
+                } else {
+                    if (argv.OnRunChanged != null) {
+                        argv.OnRunChanged(string.Format("{0}    ok", xlsxWithExtName));
+                    }
+                }
+                Thread.Sleep(10);
+            }
+            if (argv.OnRunChanged != null) {
+                argv.OnRunChanged("=================检查完毕=================");
+            }
         }
 
         /// <summary>
