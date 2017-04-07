@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-/***
+﻿/***
  * GoLangExporter.cs
  * 
  * Author abaojin
@@ -14,7 +11,7 @@ namespace xlsx2string
     {
         public override void Export()
         {
-            
+            // TODO
         }
 
         public override void Init()

@@ -43,6 +43,7 @@ namespace xlsx2string
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -59,7 +60,6 @@ namespace xlsx2string
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -152,6 +152,17 @@ namespace xlsx2string
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "导出表格";
             // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(559, 242);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(48, 16);
+            this.checkBox9.TabIndex = 22;
+            this.checkBox9.Text = "html";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            // 
             // textBox4
             // 
             this.textBox4.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -191,9 +202,9 @@ namespace xlsx2string
             this.checkBox6.AutoSize = true;
             this.checkBox6.Location = new System.Drawing.Point(396, 242);
             this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(42, 16);
+            this.checkBox6.Size = new System.Drawing.Size(48, 16);
             this.checkBox6.TabIndex = 18;
-            this.checkBox6.Text = "cpp";
+            this.checkBox6.Text = "java";
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
@@ -315,17 +326,6 @@ namespace xlsx2string
             this.textBox3.Size = new System.Drawing.Size(514, 21);
             this.textBox3.TabIndex = 19;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(559, 242);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(48, 16);
-            this.checkBox9.TabIndex = 22;
-            this.checkBox9.Text = "html";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
             // XlsxForm
             // 

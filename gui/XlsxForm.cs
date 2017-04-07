@@ -13,6 +13,8 @@ namespace xlsx2string
 {
     public partial class XlsxForm : System.Windows.Forms.Form
     {
+        private string defaultfilePath = System.Environment.CurrentDirectory;
+
         public XlsxForm()
         {
             this.MaximizeBox = false;
@@ -36,17 +38,21 @@ namespace xlsx2string
 
         }
 
-        private static string OnSelectedPath()
+        private string OnSelectedPath(string desc)
         {
             FolderBrowserDialog browser = new FolderBrowserDialog();
-            DialogResult dialog = browser.ShowDialog();
-            if (dialog != DialogResult.OK) {
-                return null;
+            browser.Description = string.Format("请选择 {0} 目录", desc);
+            if (!string.IsNullOrEmpty(defaultfilePath)) {
+                browser.SelectedPath = defaultfilePath;
             }
-            if (browser.SelectedPath.Length < 4) {
-                return null;
+
+            DialogResult dialog = browser.ShowDialog(this);
+            if (dialog == DialogResult.OK) {
+                defaultfilePath = browser.SelectedPath;
+                return defaultfilePath;
             }
-            return browser.SelectedPath;
+            
+            return string.Empty;
         }
 
         /// <summary>
@@ -56,7 +62,7 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            this.textBox3.Text = OnSelectedPath();
+            this.textBox3.Text = OnSelectedPath("表格");
         }
 
         /// <summary>
@@ -66,7 +72,7 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            this.textBox2.Text = OnSelectedPath();
+            this.textBox2.Text = OnSelectedPath("导出");
         }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace xlsx2string
 
             string error = Facade.ParseCheckerUserInput();
             if(error != null) {
-                MessageBox.Show(this, error);
+                ShowMessageBox(error);
                 return;
             }
             
@@ -136,6 +142,17 @@ namespace xlsx2string
             button5.Enabled = true;
         }
 
+        private void ShowMessageBox(string message)
+        {
+            MessageBox.Show(
+                this, 
+                message,
+                "信息",
+                MessageBoxButtons.OK, 
+                MessageBoxIcon.Information
+            );
+        }
+
         /// <summary>
         /// 导出表格按钮
         /// </summary>
@@ -149,7 +166,7 @@ namespace xlsx2string
 
             string error = Facade.ParseExportUserInput();
             if (error != null) {
-                MessageBox.Show(this, error);
+                ShowMessageBox(error);
                 return;
             }
 
