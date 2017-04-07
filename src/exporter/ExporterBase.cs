@@ -58,8 +58,8 @@ namespace xlsx2string
                 File.Delete(path);
             }
 
-            using (FileStream file = new FileStream(path, FileMode.Create, FileAccess.Write)) {
-                using (TextWriter writer = new StreamWriter(file, coding)) {
+            using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write)) {
+                using (TextWriter writer = new StreamWriter(stream, coding)) {
                     writer.Write(context);
                 }
             }

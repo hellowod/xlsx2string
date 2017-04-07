@@ -25,6 +25,9 @@ namespace xlsx2string
         // 表单数据缓存
         private static Dictionary<string, DataTable> sheetCached;
 
+        // 导出总数
+        private static int exportTotalCount = 0;
+
         static DataMemory()
         {
             checkerInfoCached = new Dictionary<string, string>();
@@ -198,12 +201,28 @@ namespace xlsx2string
         }
 
         /// <summary>
+        /// 设置导出计数器
+        /// </summary>
+        /// <param name="count"></param>
+        public static void SetExportTotalCount(int count)
+        {
+            exportTotalCount = count;
+        }
+
+        public static int GetExportTotalCount()
+        {
+            return exportTotalCount;
+        }
+
+        /// <summary>
         /// 清除导出信息
         /// </summary>
-        public static void Clear()
+        public static void Destroy()
         {
             checkerInfoCached.Clear();
             exporterInfoCached.Clear();
+
+            exporterOption.Clear();
 
             sheetCached.Clear();
         }

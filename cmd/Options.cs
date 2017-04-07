@@ -99,13 +99,13 @@ namespace xlsx2string
         }
 
         /// <summary>
-        /// 转换函数
+        /// 将参数转换为对象
         /// </summary>
         /// <param name="inputPath"></param>
         /// <param name="outputPath"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static Options Convert(string inputPath, string outputPath, ExportType type)
+        public static Options ConvertToOption(string inputPath, string outputPath, ExportType type)
         {
             Options option = new Options();
             option.ExcelPath = inputPath;
@@ -141,6 +141,49 @@ namespace xlsx2string
                     break;
             }
             return option;
+        }
+
+        /// <summary>
+        /// 将对象装换为参数
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public static string ConvertToString(ExportType type, Options option)
+        {
+            string tmpStr = string.Empty;
+            switch (type) {
+                case ExportType.json:
+                    tmpStr = option.JsonPath;
+                    break;
+                case ExportType.txt:
+                    tmpStr = option.TxtPath;
+                    break;
+                case ExportType.csv:
+                    tmpStr = option.CsvPath;
+                    break;
+                case ExportType.lua:
+                    tmpStr = option.LuaPath;
+                    break;
+                case ExportType.cs:
+                    tmpStr = option.CSharpPath;
+                    break;
+                case ExportType.java:
+                    tmpStr = option.JavaPath;
+                    break;
+                case ExportType.cpp:
+                    tmpStr = option.CppPath;
+                    break;
+                case ExportType.go:
+                    tmpStr = option.GoPath;
+                    break;
+                case ExportType.sql:
+                    tmpStr = option.SQLPath;
+                    break;
+                default:
+                    break;
+            }
+            return tmpStr;
         }
     }
 }

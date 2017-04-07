@@ -112,7 +112,9 @@
     <Compile Include="src\checker\IChecker.cs" />
     <Compile Include="src\checker\DataChecker.cs" />
     <Compile Include="src\checker\NormChecker.cs" />
+    <Compile Include="src\database\CheckeCallbackArgv.cs" />
     <Compile Include="src\database\DataMemory.cs" />
+    <Compile Include="src\database\ExprotCallbackArgv.cs" />
     <Compile Include="src\exporter\ExporterBase.cs" />
     <Compile Include="src\exporter\exportcoder\CplusExporter.cs" />
     <Compile Include="src\exporter\exportcoder\CsharpExporter.cs" />

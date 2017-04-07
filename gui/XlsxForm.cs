@@ -103,11 +103,35 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
+            if (!button5.Enabled) {
+                return;
+            }
+
             string error = Facade.ParseCheckerUserInput();
             if(error != null) {
                 MessageBox.Show(this, error);
                 return;
             }
+            
+            CheckeCallbackArgv argv = new CheckeCallbackArgv();
+            argv.OnProgressChanged = OnProgressChanged;
+            argv.OnRunChanged = OnRunChanged;
+
+            Facade.BeforeCheckerOptionForm();
+            this.BeforeCheckerForm();
+            Facade.RunCheckerXlsx(argv);
+            this.AfterCheckerForm();
+            Facade.AfterCheckerOptionForm();
+        }
+
+        private void BeforeCheckerForm()
+        {
+
+        }
+
+        private void AfterCheckerForm()
+        {
+
         }
 
         /// <summary>
@@ -117,44 +141,57 @@ namespace xlsx2string
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!button1.Enabled) {
+                return;
+            }
+
             string error = Facade.ParseExportUserInput();
             if (error != null) {
                 MessageBox.Show(this, error);
                 return;
             }
-            Facade.SetOnProgressEvent(OnChangedProgress);
+
+            ExprotCallbackArgv argv = new ExprotCallbackArgv();
+            argv.OnProgressChanged = OnProgressChanged;
+            argv.OnRunChanged = OnRunChanged;
+
             Facade.BeforeExporterOptionForm();
-            Facade.RunXlsxForm();
+            this.BeforeExporterForm();
+            Facade.RunXlsxForm(argv);
+            this.AfterExporterForm();
             Facade.AfterExporterOptionForm();
         }
 
-        private void OnChangedProgress(int value)
+        private void BeforeExporterForm()
         {
-            if(value > 100) {
-                progressBar1.Value = 100;
-            } else {
-                progressBar1.Value = value;
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = DataMemory.GetExportTotalCount();
+            textBox4.Text = "";
+            textBox4.Refresh();
+            button1.Enabled = false;
+        }
+
+        private void AfterExporterForm()
+        {
+            button1.Enabled = true;
+        }
+
+        private void OnProgressChanged(int value)
+        {
+            if(value > progressBar1.Maximum) {
+                progressBar1.Value = progressBar1.Maximum;
+                return;
             }
+            if(value < progressBar1.Minimum) {
+                progressBar1.Value = progressBar1.Minimum;
+                return;
+            }
+            progressBar1.Value = value;
         }
 
-        /// <summary>
-        /// 检查表信息输出框
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnRunChanged(string value)
         {
-
-        }
-
-        /// <summary>
-        /// 导出表信息输出框
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            textBox4.AppendText(string.Format("{0}   {1}   ok\n", DateTime.Now.ToString("HH:mm:ss"), value));
         }
 
         private void OnCheckedChangeed(object sender, EventArgs e)
@@ -217,6 +254,16 @@ namespace xlsx2string
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

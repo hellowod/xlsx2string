@@ -17,18 +17,6 @@ namespace xlsx2string
 {
     public static class Facade
     {
-        private static int ExportCount = 0;
-        private static Action<int> m_onProgressEvent;
-
-        /// <summary>
-        /// 设置进度事件
-        /// </summary>
-        /// <param name="evt"></param>
-        public static void SetOnProgressEvent(Action<int> evt)
-        {
-            m_onProgressEvent = evt;
-        }
-
         /// <summary>
         /// 检查用户输入信息
         /// </summary>
@@ -85,7 +73,7 @@ namespace xlsx2string
         /// </summary>
         /// <param name="form"></param>
         /// <returns></returns>
-        public static void RunCheckerXlsx()
+        public static void RunCheckerXlsx(CheckeCallbackArgv argv)
         {
             
         }
@@ -97,14 +85,7 @@ namespace xlsx2string
         /// <returns></returns>
         public static void AfterCheckerOptionForm()
         {
-            OptionsForm form = DataMemory.GetOptionsFrom();
-
-            if (form.XlsxSrcPath.Length <= 0) {
-                return;
-            }
-            if (!Directory.Exists(form.XlsxSrcPath)) {
-                return;
-            }
+            
         }
 
         /// <summary>
@@ -114,7 +95,7 @@ namespace xlsx2string
         /// <returns></returns>
         public static void BeforeExporterOptionForm()
         {
-            ExportCount = 0;
+            DataMemory.SetExportTotalCount(0);
 
             OptionsForm optionForm = DataMemory.GetOptionsFrom();
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
@@ -136,6 +117,7 @@ namespace xlsx2string
             if (files.Length <= 0) {
                 return;
             }
+            int count = 0;
             // 注意xlsx文件命名规则： 标号_英文名_中文名
             foreach (string srcFile in files) {
                 string fileName = string.Empty;
@@ -149,42 +131,48 @@ namespace xlsx2string
                 foreach(ExportType type in typeList) {
                     string outFileName = string.Format("{0}.{1}", fileName, type);
                     string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
-                    Options option = Options.Convert(srcFile, dstFile, type);
+                    Options option = Options.ConvertToOption(srcFile, dstFile, type);
                     DataMemory.SetExportOption(type, option);
-                    ExportCount++;
+                    count++;
                 }
             }
+
+            DataMemory.SetExportTotalCount(count);
         }
 
-        private static Thread thread = null;
         /// <summary>
         /// 根据窗口参数，执行Excel数据导出工作
         /// </summary>
         /// <param name="options">命令行参数</param>
-        public static void RunXlsxForm()
+        public static void RunXlsxForm(ExprotCallbackArgv argv)
         {
-            thread = new Thread(new ThreadStart(StartThread));
-            thread.Start();
-        }
+            if(argv == null) {
+                throw new Exception("Run xlsx form argv is null.");
+            }
 
-        private static void StartThread()
-        {
-            int count = 0;
+            if (argv.OnRunChanged != null) {
+                argv.OnRunChanged("=================开始导出=================");
+            }
+
+            int curreExportCount = 0;
             List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
             foreach (ExportType type in typeList) {
                 List<Options> optionList = DataMemory.GetExportOptions(type);
                 foreach (Options option in optionList) {
-                    CmdXlsx(type, option);
-                    count++;
-                    float value = (float)count / ExportCount;
-                    if(m_onProgressEvent != null) {
-                        m_onProgressEvent((int)(value * 100));
+                    Options result = CmdXlsx(type, option);
+                    if(argv.OnRunChanged != null) {
+                        argv.OnRunChanged(Options.ConvertToString(type, result));
+                    }
+                    curreExportCount++;
+                    if (argv.OnProgressChanged != null) {
+                        argv.OnProgressChanged(curreExportCount);
                     }
                     Thread.Sleep(10);
                 }
             }
-            thread.Abort();
-            thread = null;
+            if (argv.OnRunChanged != null) {
+                argv.OnRunChanged("=================导出完毕=================");
+            }
         }
 
         /// <summary>
@@ -192,15 +180,16 @@ namespace xlsx2string
         /// </summary>
         public static void AfterExporterOptionForm()
         {
-
+            DataMemory.Destroy();
         }
 
         /// <summary>
-        /// 根据命令行参数，执行Excel数据导出工作(函数性能需要优化)
+        /// 根据命令行参数，执行Excel数据导出工作
         /// </summary>
         /// <param name="type"></param>
         /// <param name="option"></param>
-        public static void CmdXlsx(ExportType type, Options option)
+        /// <returns></returns>
+        public static Options CmdXlsx(ExportType type, Options option)
         {
             try {
                 DataTable sheet = LoadSheet(option.ExcelPath);
@@ -213,6 +202,8 @@ namespace xlsx2string
             } catch (System.Exception ex) {
                 throw new Exception("Excel export error: " + ex.Message);
             }
+
+            return option;
         }
 
         /// <summary>
