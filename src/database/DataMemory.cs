@@ -59,6 +59,9 @@ namespace xlsx2string
             SetExporter(ExportType.lua, new LuaExporter());
             SetExporter(ExportType.sql, new SQLExporter());
             SetExporter(ExportType.txt, new TextExporter());
+            SetExporter(ExportType.csv, new CsvExporter());
+            SetExporter(ExportType.html, new HtmlExporter());
+            SetExporter(ExportType.txt, new TextExporter());
 
             SetExporter(ExportType.cpp, new CplusExporter());
             SetExporter(ExportType.cs, new CsharpExporter());

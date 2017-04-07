@@ -15,17 +15,12 @@ namespace xlsx2string
     {
         public override void Export()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Init()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void SaveToFile(string filePath, Encoding encoding)
-        {
-            throw new NotImplementedException();
+            
         }
     }
 }

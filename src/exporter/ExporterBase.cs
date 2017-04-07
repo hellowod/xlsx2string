@@ -104,11 +104,6 @@ namespace xlsx2string
             
         }
 
-        public virtual void SaveToFile(string filePath, Encoding encoding)
-        {
-            
-        }
-
         public void Clear()
         {
            

@@ -232,7 +232,7 @@ namespace xlsx2string
                     RunExporter(type, sheet, option, coding);
                 }
             } catch (System.Exception ex) {
-                throw new Exception("Excel export error: " + ex.Message);
+                throw new Exception("Excel export error: " + ex.StackTrace);
             }
 
             return option;

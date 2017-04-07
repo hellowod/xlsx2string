@@ -35,7 +35,5 @@ namespace xlsx2string
         void Export();
 
         void Clear();
-
-        void SaveToFile(string filePath, Encoding encoding);
     }
 }

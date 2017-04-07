@@ -42,6 +42,13 @@ namespace xlsx2string
             set;
         }
 
+        [Option('h', "html", Required = false, HelpText = "指定输出的html文件路径.")]
+        public string HtmlPath
+        {
+            get;
+            set;
+        }
+
         [Option('l', "lua", Required = false, HelpText = "指定输出的lua数据定义代码文件路径.")]
         public string LuaPath
         {
@@ -84,13 +91,6 @@ namespace xlsx2string
             set;
         }
 
-        [Option('h', "header", Required = true, HelpText = "表格中有几行是表头.")]
-        public int HeaderRows
-        {
-            get;
-            set;
-        }
-
         [Option('l', "lowcase", Required = false, DefaultValue = false, HelpText = "字段名称自动转换为小写")]
         public bool Lowcase
         {
@@ -115,6 +115,9 @@ namespace xlsx2string
                     break;
                 case ExportType.txt:
                     option.TxtPath = outputPath;
+                    break;
+                case ExportType.html:
+                    option.HtmlPath = outputPath;
                     break;
                 case ExportType.csv:
                     option.CsvPath = outputPath;
@@ -161,6 +164,9 @@ namespace xlsx2string
                     break;
                 case ExportType.csv:
                     tmpStr = option.CsvPath;
+                    break;
+                case ExportType.html:
+                    tmpStr = option.HtmlPath;
                     break;
                 case ExportType.lua:
                     tmpStr = option.LuaPath;

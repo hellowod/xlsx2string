@@ -119,7 +119,9 @@
     <Compile Include="src\exporter\exportcoder\CplusExporter.cs" />
     <Compile Include="src\exporter\exportcoder\CsharpExporter.cs" />
     <Compile Include="src\exporter\exportcoder\GoLangExporter.cs" />
+    <Compile Include="src\exporter\exportstring\HtmlExporter.cs" />
     <Compile Include="src\exporter\exportstring\LuaExporter.cs" />
+    <Compile Include="src\exporter\exportstring\CsvExporter.cs" />
     <Compile Include="src\exporter\IExporter.cs" />
     <Compile Include="src\exporter\exportcoder\JavaExporter.cs" />
     <Compile Include="src\exporter\exportstring\JsonExporter.cs" />

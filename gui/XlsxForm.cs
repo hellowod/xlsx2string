@@ -274,5 +274,10 @@ namespace xlsx2string
         {
 
         }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            OnCheckedChangeed(sender, e);
+        }
     }
 }

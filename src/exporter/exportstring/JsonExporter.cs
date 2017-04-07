@@ -74,25 +74,5 @@ namespace xlsx2string
                 datTable[id] = rowData;
             }
         }
-
-        /// <summary>
-        /// 将内部数据转换成Json文本，并保存至文件
-        /// </summary>
-        /// <param name="jsonPath">输出文件路径</param>
-        public override void SaveToFile(string filePath, Encoding encoding)
-        {
-            if (datTable == null) {
-                throw new Exception("JsonExporter内部数据为空。");
-            }
-
-            // 转换为JSON字符串
-            string json = JsonConvert.SerializeObject(datTable, Formatting.Indented);
-
-            // 保存文件
-            using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {
-                using (TextWriter writer = new StreamWriter(file, encoding))
-                    writer.Write(json);
-            }
-        }
     }
 }

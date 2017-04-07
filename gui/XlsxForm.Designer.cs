@@ -40,8 +40,10 @@ namespace xlsx2string
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
@@ -57,8 +59,7 @@ namespace xlsx2string
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -103,6 +104,18 @@ namespace xlsx2string
             this.groupBox1.Text = "检查表格";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBox1.Location = new System.Drawing.Point(20, 23);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(591, 124);
+            this.textBox1.TabIndex = 19;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(632, 23);
@@ -115,6 +128,7 @@ namespace xlsx2string
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox9);
             this.groupBox2.Controls.Add(this.textBox4);
             this.groupBox2.Controls.Add(this.checkBox8);
             this.groupBox2.Controls.Add(this.checkBox7);
@@ -138,10 +152,22 @@ namespace xlsx2string
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "导出表格";
             // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBox4.Location = new System.Drawing.Point(20, 105);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox4.Size = new System.Drawing.Size(591, 120);
+            this.textBox4.TabIndex = 21;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(526, 242);
+            this.checkBox8.Location = new System.Drawing.Point(508, 242);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(36, 16);
             this.checkBox8.TabIndex = 20;
@@ -152,7 +178,7 @@ namespace xlsx2string
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(460, 242);
+            this.checkBox7.Location = new System.Drawing.Point(453, 242);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(36, 16);
             this.checkBox7.TabIndex = 19;
@@ -290,29 +316,16 @@ namespace xlsx2string
             this.textBox3.TabIndex = 19;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // textBox1
+            // checkBox9
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox1.Location = new System.Drawing.Point(20, 23);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(591, 124);
-            this.textBox1.TabIndex = 19;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox4.Location = new System.Drawing.Point(20, 105);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(591, 120);
-            this.textBox4.TabIndex = 21;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(559, 242);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(48, 16);
+            this.checkBox9.TabIndex = 22;
+            this.checkBox9.Text = "html";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
             // XlsxForm
             // 
@@ -361,5 +374,6 @@ namespace xlsx2string
         private CheckBox checkBox8;
         private TextBox textBox1;
         private TextBox textBox4;
+        private CheckBox checkBox9;
     }
 }

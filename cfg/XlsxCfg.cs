@@ -16,6 +16,7 @@ namespace xlsx2string
         json,
         txt,
         csv,
+        html,
         lua,
 
         cs,
