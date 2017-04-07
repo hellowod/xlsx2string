@@ -247,7 +247,7 @@ namespace xlsx2string
             // 
             // progressBar1
             // 
-            this.progressBar1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
             this.progressBar1.Location = new System.Drawing.Point(20, 75);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(778, 23);
