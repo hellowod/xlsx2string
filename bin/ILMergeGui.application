@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xrml="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <assemblyIdentity name="ILMergeGui.application" version="2.0.9.0" publicKeyToken="f70b3bef76080fc4" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:publisher="ILMergeGui" asmv2:product="ILMergeGui" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <deployment install="true" mapFileExtensions="true">
+    <subscription>
+      <update>
+        <expiration maximumAge="7" unit="days" />
+      </update>
+    </subscription>
+    <deploymentProvider codebase="http://ilmergegui.codeplex.com/releases/clickonce/ILMergeGui.application" />
+  </deployment>
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
+  <dependency>
+    <dependentAssembly dependencyType="install" codebase="Application Files\ILMergeGui_2_0_9_0\ILMergeGui.exe.manifest" size="9232">
+      <assemblyIdentity name="ILMergeGui.exe" version="2.0.9.0" publicKeyToken="f70b3bef76080fc4" language="neutral" processorArchitecture="msil" type="win32" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>5Huktmm8MJzGkQY0Y3FG8xy+g4E=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+<publisherIdentity name="CN=Lenovo\Veg" issuerKeyHash="5922d04ef2a4ddd9b1a107f5305b85932bb236a8" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>NjXgFTlkPr7a9E5cHHsLBzY4o1E=</DigestValue></Reference></SignedInfo><SignatureValue>fuBXrCKklOQwrG59tK3vBGUNMHDKUXzqUZo40iFg4UA4cRvUtiaG5q60ZI0GnOQV+b4ol0lbsQ22snLzM+GB4K0P+ukThL4GDCU9ifD6p3iewuA7yRRInlKwzPnsbSJAvl5L0+XLWcugtojkU7q4Qsr6StIdYKI6RLJ63ofu1sE=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>n06xcM21vVSTrPfti0qSMCz5NN7FkeM1h5qCVZTaOm+TY0rQCgf6clqIXKCMcyKxiSpjmhiMIMvy/XMrUkboRqNdYAk8eKcyfxFkDmyZCVAYdOVsfF1PqtNKZlycAtb+rziT56pLHhAJBCUTxOmusiQJJ7JTqoZzFmzSvpA0afU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="51a33836070b7b1c5c4ef4dabe3e643915e03536" Description="" Url=""><as:assemblyIdentity name="ILMergeGui.application" version="2.0.9.0" publicKeyToken="f70b3bef76080fc4" language="neutral" processorArchitecture="msil" xmlns="urn:schemas-microsoft-com:asm.v1" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Lenovo\Veg</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>H9SNKhgQKe7JMmCVJ6Vd+Nlw0XI=</DigestValue></Reference></SignedInfo><SignatureValue>TcWLsE09r+CJFcUTl9GHTFs2lTKvyfKize/RR6BNu4oLqtC0q5oWyyWsWlLYFKotEkpYbP14biuSh/CjEKWNeqqgzwjZQpUw64k2qZT5RRhGOQ5YR6LWHD+mRfJAqZCM0ntHctGn5Dn260k76Y3e5PgBIN7FHVTdNUINJ9jDP5U=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>n06xcM21vVSTrPfti0qSMCz5NN7FkeM1h5qCVZTaOm+TY0rQCgf6clqIXKCMcyKxiSpjmhiMIMvy/XMrUkboRqNdYAk8eKcyfxFkDmyZCVAYdOVsfF1PqtNKZlycAtb+rziT56pLHhAJBCUTxOmusiQJJ7JTqoZzFmzSvpA0afU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBwTCCASqgAwIBAgIQOOnhNcwkH4hLdrUxP9Q3PDANBgkqhkiG9w0BAQUFADAfMR0wGwYDVQQDHhQATABlAG4AbwB2AG8AXABWAGUAZzAeFw0xMzEyMDQxOTE1MjBaFw0xODEyMDQxOTE1MjBaMB8xHTAbBgNVBAMeFABMAGUAbgBvAHYAbwBcAFYAZQBnMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCfTrFwzbW9VJOs9+2LSpIwLPk03sWR4zWHmoJVlNo6b5NjStAKB/pyWohcoIxzIrGJKmOaGIwgy/L9cytSRuhGo11gCTx4pzJ/EWQObJkJUBh05Wx8XU+q00pmXJwC1v6vOJPnqkseEAkEJRPE6a6yJAknslOqhnMWbNK+kDRp9QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAEFnoq3qc7CeuU5Tn44WWG/zsrxLckUP9C2gMJ/6rXZehIcKk+Bshjf8AA/FTadJxVXpPRH+FRYr9XtmtRB0t+k1BCYYL5htVYxEpYgAS0CNO2oFJJUfn1EmBuSTOHsUZ1gYYzo0gPKT72y5Fzl7GHJQXLukaNPpNnWCvpWsI7Nu</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
