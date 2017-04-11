@@ -41,6 +41,12 @@ namespace xlsx2string
             set;
         }
 
+        public int ColCount
+        {
+            get;
+            private set;
+        }
+
         public List<FieldDef> FieldList
         {
             get {
@@ -92,6 +98,8 @@ namespace xlsx2string
 
                 fieldList.Add(field);
             }
+
+            ColCount = fieldList.Count;
         }
 
         public virtual void Init()

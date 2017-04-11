@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Data;
 using System.Text;
 
@@ -16,6 +16,17 @@ namespace xlsx2string
         public override void Export()
         {
             StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < ColCount; ++i) {
+                FieldDef field = FieldList[i];
+                if(i >= (ColCount - 1)) {
+                    sb.AppendFormat("{0}", field.name);
+                } else {
+                    sb.AppendFormat("{0}\t", field.name);
+                }
+            }
+            sb.AppendLine();
+
             foreach (DataRow row in Sheet.Rows) {
                 object[] columns = row.ItemArray;
                 sb.Append(columns[0]);
@@ -24,13 +35,13 @@ namespace xlsx2string
                 }
                 sb.AppendLine();
             }
-            // 写文件
-            this.WriteFile(Option.TxtPath, sb.ToString(), Coding);
-        }
 
-        public override void Init()
-        {
-            
+            // 写文件
+            string p = GetFileName(Option.TxtPath);
+            p = string.Format("{0}.tab.txt", p.ToLower());
+            p = Path.Combine(Path.GetDirectoryName(Option.TxtPath), p);
+
+            this.WriteFile(p, sb.ToString(), Coding);
         }
     }
 }
