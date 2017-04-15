@@ -30,7 +30,9 @@ namespace xlsx2string
             foreach (DataRow row in Sheet.Rows) {
                 object[] columns = row.ItemArray;
                 sb.Append(columns[0]);
-                foreach (object obj in columns) {
+
+                for(int i = 1; i < columns.Length; ++i) {
+                    object obj = columns[i];
                     sb.AppendFormat("\t{0}", obj);
                 }
                 sb.AppendLine();
