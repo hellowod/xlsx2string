@@ -82,7 +82,6 @@ namespace xlsx2string
         protected virtual void ParseFiledList()
         {
             if (Sheet.Rows.Count < 2) {
-
                 return;
             }
 

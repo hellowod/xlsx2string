@@ -53,7 +53,7 @@ namespace xlsx2string
             foreach (FieldDef field in FieldList) {
                 sbTab.AppendFormat("\t// {0}", field.comment);
                 sbTab.AppendLine();
-                sbTab.AppendFormat("\tpublic {0} {1}", field.type, field.name);
+                sbTab.AppendFormat("\tpublic {0} {1}", field.type.ToLower(), field.name);
                 sbTab.AppendLine(" {");
                 sbTab.AppendFormat("\t\tget;");
                 sbTab.AppendLine();

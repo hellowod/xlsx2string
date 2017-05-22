@@ -251,8 +251,10 @@ namespace xlsx2string
             if (sheet != null) {
                 return sheet;
             } else {
-                using (FileStream excelFile = File.Open(path, FileMode.Open, FileAccess.Read)) {
-                    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(excelFile);
+                try
+                {
+                    FileStream stream  = File.Open(path, FileMode.Open, FileAccess.Read);
+                    IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
                     excelReader.IsFirstRowAsColumnNames = true;
                     DataSet datSet = excelReader.AsDataSet();
 
@@ -264,8 +266,13 @@ namespace xlsx2string
                     if (sheet.Rows.Count <= 0) {
                         throw new Exception("Excel sheet not data: " + path);
                     }
+
+                    DataMemory.SetSheet(path, sheet);
+
+                    excelReader.Close();
+                } catch (System.Exception ex) {
+                    throw new Exception(ex.StackTrace);
                 }
-                DataMemory.SetSheet(path, sheet);
                 return sheet;
             }
         }
