@@ -19,11 +19,6 @@ namespace xlsx2string
     /// </summary>
     public class CsharpExporter : ExporterBase
     {
-        public CsharpExporter()
-        {
-            TypeMapping();
-        }
-
         public String ClassComment
         {
             get;

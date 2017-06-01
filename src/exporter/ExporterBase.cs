@@ -23,12 +23,17 @@ namespace xlsx2string
     {
         private static Dictionary<string, string> arrayType;
 
+        private List<FieldDef> fieldList;
+
         static ExporterBase()
         {
             arrayType = new Dictionary<string, string>();
         }
 
-        private List<FieldDef> fieldList;
+        public ExporterBase()
+        {
+            this.New();
+        }
 
         public DataTable Sheet
         {
@@ -141,6 +146,11 @@ namespace xlsx2string
             ColCount = fieldList.Count;
         }
 
+        public virtual void New()
+        {
+            this.TypeMapping();
+        }
+
         public virtual void Init()
         {
             ParseFiledList();
@@ -151,7 +161,7 @@ namespace xlsx2string
             
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
            
         }
