@@ -21,17 +21,12 @@ namespace xlsx2string
 
     public abstract class ExporterBase : IExporter
     {
-        private static Dictionary<string, string> arrayType = new Dictionary<string, string>() {
-            { "shortarray", "short[]" },
-            { "ushortarray", "ushort[]" },
-            { "intarray", "int[]" },
-            { "uintarray", "uint[]" },
-            { "longarray", "long[]" },
-            { "ulongarray", "ulong[]" },
-            { "stringarray", "string[]" },
-            { "floatarray", "float[]" },
-            { "doublearray", "double[]" },
-        };
+        private static Dictionary<string, string> arrayType;
+
+        static ExporterBase()
+        {
+            arrayType = new Dictionary<string, string>();
+        }
 
         private List<FieldDef> fieldList;
 
@@ -71,6 +66,32 @@ namespace xlsx2string
             get {
                 return fieldList;
             }
+        }
+
+        protected virtual void TypeMapping()
+        {
+            TypeArray["int"] = "int";
+            TypeArray["uint"] = "uint";
+            TypeArray["short"] = "short";
+            TypeArray["ushort"] = "ushort";
+            TypeArray["long"] = "long";
+            TypeArray["ulong"] = "ulong";
+            TypeArray["string"] = "string";
+            TypeArray["char"] = "char";
+            TypeArray["float"] = "float";
+            TypeArray["double"] = "double";
+            TypeArray["bool"] = "bool";
+
+            TypeArray["shortarray"] = "short[]";
+            TypeArray["ushortarray"] = "ushort[]";
+            TypeArray["intarray"] = "int[]";
+            TypeArray["uintarray"] = "uint[]";
+            TypeArray["longarray"] = "long[]";
+            TypeArray["ulongarray"] = "ulong[]";
+            TypeArray["stringarray"] = "string[]";
+            TypeArray["floatarray"] = "float[]";
+            TypeArray["doublearray"] = "double[]";
+            TypeArray["boolarray"] = "bool[]";
         }
 
         protected virtual void WriteFile(string path, string context, Encoding coding)

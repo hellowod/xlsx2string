@@ -19,6 +19,11 @@ namespace xlsx2string
     /// </summary>
     public class CsharpExporter : ExporterBase
     {
+        public CsharpExporter()
+        {
+            TypeMapping();
+        }
+
         public String ClassComment
         {
             get;
@@ -55,12 +60,8 @@ namespace xlsx2string
                 sbTab.AppendLine();
                 string fieldType = field.type.ToLower().Trim();
                 string fieldTypeMapping = null;
-                if (fieldType.EndsWith("array")) {
-                    if (!TypeArray.TryGetValue(fieldType, out fieldTypeMapping)) {
-                        throw new Exception(string.Format("Error type {0}", fieldType));
-                    }
-                } else {
-                    fieldTypeMapping = fieldType;
+                if (!TypeArray.TryGetValue(fieldType, out fieldTypeMapping)) {
+                    throw new Exception(string.Format("Error type {0}", fieldType));
                 }
                 sbTab.AppendFormat("\tpublic {0} {1}", fieldTypeMapping, field.name);
                 sbTab.AppendLine(" {");
