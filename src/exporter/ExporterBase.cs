@@ -73,6 +73,9 @@ namespace xlsx2string
             }
         }
 
+        /// <summary>
+        /// 默认映射关系（可重写）
+        /// </summary>
         protected virtual void TypeMapping()
         {
             TypeArray["int"] = "int";
@@ -146,21 +149,33 @@ namespace xlsx2string
             ColCount = fieldList.Count;
         }
 
+        /// <summary>
+        /// 导出器实例化
+        /// </summary>
         public virtual void New()
         {
             this.TypeMapping();
         }
 
+        /// <summary>
+        /// 导出初始
+        /// </summary>
         public virtual void Init()
         {
             ParseFiledList();
         }
 
+        /// <summary>
+        /// 导出
+        /// </summary>
         public virtual void Export()
         {
             
         }
 
+        /// <summary>
+        /// 导出清理
+        /// </summary>
         public virtual void Clear()
         {
            
