@@ -53,7 +53,16 @@ namespace xlsx2string
             foreach (FieldDef field in FieldList) {
                 sbTab.AppendFormat("\t// {0}", field.comment);
                 sbTab.AppendLine();
-                sbTab.AppendFormat("\tpublic {0} {1}", field.type.ToLower(), field.name);
+                string fieldType = field.type.ToLower().Trim();
+                string fieldTypeMapping = null;
+                if (fieldType.EndsWith("array")) {
+                    if (!TypeArray.TryGetValue(fieldType, out fieldTypeMapping)) {
+                        throw new Exception(string.Format("Error type {0}", fieldType));
+                    }
+                } else {
+                    fieldTypeMapping = fieldType;
+                }
+                sbTab.AppendFormat("\tpublic {0} {1}", fieldTypeMapping, field.name);
                 sbTab.AppendLine(" {");
                 sbTab.AppendFormat("\t\tget;");
                 sbTab.AppendLine();

@@ -21,6 +21,18 @@ namespace xlsx2string
 
     public abstract class ExporterBase : IExporter
     {
+        private static Dictionary<string, string> arrayType = new Dictionary<string, string>() {
+            { "shortarray", "short[]" },
+            { "ushortarray", "ushort[]" },
+            { "intarray", "int[]" },
+            { "uintarray", "uint[]" },
+            { "longarray", "long[]" },
+            { "ulongarray", "ulong[]" },
+            { "stringarray", "string[]" },
+            { "floatarray", "float[]" },
+            { "doublearray", "double[]" },
+        };
+
         private List<FieldDef> fieldList;
 
         public DataTable Sheet
@@ -45,6 +57,13 @@ namespace xlsx2string
         {
             get;
             private set;
+        }
+
+        public Dictionary<string, string> TypeArray
+        {
+            get {
+                return arrayType;
+            } 
         }
 
         public List<FieldDef> FieldList
