@@ -4,7 +4,7 @@
 
 ## 窗口模式
 
-![form](/res/form.png)
+![form](https://github.com/hellowod/xlsx2string/blob/master/res/form.png)
 
 ## 命令模式
 
