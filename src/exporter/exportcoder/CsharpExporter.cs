@@ -69,42 +69,42 @@ namespace xlsx2string
 
 
             // 创建代码字符串
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("public class {0}TabConf : AbsTabConf\r\n{{", defName);
-            sb.AppendLine();
-            sb.AppendFormat("\tpublic const string FILE_NAME = \"{0}.tab\";\n", defName.ToLower());
-            sb.AppendLine();
-            sb.AppendLine("\tpublic enum Cols");
-            sb.AppendLine("\t{");
+            StringBuilder sbConf = new StringBuilder();
+            sbConf.AppendFormat("public class {0}TabConf : AbsTabConf\r\n{{", defName);
+            sbConf.AppendLine();
+            sbConf.AppendFormat("\tpublic const string FILE_NAME = \"{0}.tab\";\n", defName.ToLower());
+            sbConf.AppendLine();
+            sbConf.AppendLine("\tpublic enum Cols");
+            sbConf.AppendLine("\t{");
             foreach (FieldDef field in FieldList) {
-                sb.AppendFormat("\t\t{0},\n", field.name.ToUpper());
+                sbConf.AppendFormat("\t\t{0},\n", field.name.ToUpper());
             }
-            sb.AppendLine("\t}");
-            sb.AppendLine();
-            sb.AppendLine("\tpublic override void Init()");
-            sb.AppendLine("\t{");
-            sb.AppendLine("\t\tConfFactory.LoadConf<TabReaderImpl>(FILE_NAME, this);");
-            sb.AppendLine("\t}");
-            sb.AppendLine();
+            sbConf.AppendLine("\t}");
+            sbConf.AppendLine();
+            sbConf.AppendLine("\tpublic override void Init()");
+            sbConf.AppendLine("\t{");
+            sbConf.AppendLine("\t\tConfFactory.LoadConf<TabReaderImpl>(FILE_NAME, this);");
+            sbConf.AppendLine("\t}");
+            sbConf.AppendLine();
 
-            sb.AppendLine("\tpublic override void OnRow(ITabRow row) {");
-            sb.AppendFormat("\t\t{0}Tab tab = new {1}Tab();\n", defName, defName);
+            sbConf.AppendLine("\tpublic override void OnRow(ITabRow row) {");
+            sbConf.AppendFormat("\t\t{0}Tab tab = new {1}Tab();\n", defName, defName);
             foreach (FieldDef field in FieldList) {
                 string typeName = field.type.Substring(0, 1).ToUpper() + field.type.Substring(1);
-                sb.AppendFormat("\t\ttab.{0} = row.Get{1}((int)Cols.{2});\n", field.name, typeName, field.name.ToUpper());
+                sbConf.AppendFormat("\t\ttab.{0} = row.Get{1}((int)Cols.{2});\n", field.name, typeName, field.name.ToUpper());
             }
-            sb.AppendLine();
-            sb.AppendFormat("\t\tif (!ConfPool.ContainsKey(tab.{0}.ToString())) {{\n", FieldList[0].name);
-            sb.AppendFormat("\t\t\tConfPool.Add(tab.{0}.ToString(), tab);\n", FieldList[0].name);
-            sb.AppendLine("\t\t}");
-            sb.AppendLine("\t}");
-            sb.AppendLine("}");
+            sbConf.AppendLine();
+            sbConf.AppendFormat("\t\tif (!ConfPool.ContainsKey(tab.{0}.ToString())) {{\n", FieldList[0].name);
+            sbConf.AppendFormat("\t\t\tConfPool.Add(tab.{0}.ToString(), tab);\n", FieldList[0].name);
+            sbConf.AppendLine("\t\t}");
+            sbConf.AppendLine("\t}");
+            sbConf.AppendLine("}");
 
-            sb.AppendLine("// End of Auto Generated Code");
+            sbConf.AppendLine("// End of Auto Generated Code");
 
             StringBuilder sb = new StringBuilder();
             sb.Append(sbTab.ToString());
-            sb.Append(sb.ToString());
+            sb.Append(sbConf.ToString());
 
             // 写文件
             string p = GetFileName(Option.CSharpPath);

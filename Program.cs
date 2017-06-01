@@ -48,7 +48,9 @@ namespace xlsx2string
 
             if (parser.ParseArgumentsStrict(args, options, () => Environment.Exit(-1))) {
                 try {
-                    //Facade.RunXlsx(options);
+                    foreach (ExportType exportType in Enum.GetValues(typeof(ExportType))) {
+                        Facade.CmdXlsx(exportType, options);
+                    }
                 } catch (Exception ex) {
                     Console.WriteLine("Error: " + ex.Message);
                 }
