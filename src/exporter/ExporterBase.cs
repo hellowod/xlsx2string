@@ -162,7 +162,7 @@ namespace xlsx2string
         /// </summary>
         public virtual void Init()
         {
-            ParseFiledList();
+            this.ParseFiledList();
         }
 
         /// <summary>
