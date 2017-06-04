@@ -102,6 +102,12 @@ namespace xlsx2string
             TypeArray["boolarray"] = "bool[]";
         }
 
+        /// <summary>
+        /// 写文件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="context"></param>
+        /// <param name="coding"></param>
         protected virtual void WriteFile(string path, string context, Encoding coding)
         {
             string outPath = Path.GetDirectoryName(path);
@@ -119,6 +125,11 @@ namespace xlsx2string
             }
         }
 
+        /// <summary>
+        /// 获取文件名称
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         protected virtual string GetFileName(string path)
         {
             return Path.GetFileNameWithoutExtension(path);
