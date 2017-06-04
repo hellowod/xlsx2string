@@ -9,7 +9,7 @@ namespace xlsx2string
 {
     public class GoLangExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             // TODO
         }

@@ -12,7 +12,7 @@ namespace xlsx2string
 {
     public class CsvExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             StringBuilder sb = new StringBuilder();
             foreach (DataRow row in Sheet.Rows) {

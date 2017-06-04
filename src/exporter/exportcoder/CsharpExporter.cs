@@ -25,7 +25,7 @@ namespace xlsx2string
             set;
         }
 
-        public override void Export()
+        public override void Process()
         {
             if (FieldList == null) {
                 throw new Exception("Filed csharp is null.");

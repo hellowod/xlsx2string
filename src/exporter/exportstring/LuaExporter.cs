@@ -76,7 +76,7 @@ namespace xlsx2string
             return sb.ToString();
         }
 
-        public override void Export()
+        public override void Process()
         {
             string tabelStruct = GetStructLua();
             string tabelContent = GetContextLua();

@@ -84,7 +84,7 @@ namespace xlsx2string
         {
         }
 
-        public override void Export()
+        public override void Process()
         {
             string tableName = GetFileName(Option.JsonPath);
             string tabelStruct = GetTabelStructSQL(Sheet, tableName);

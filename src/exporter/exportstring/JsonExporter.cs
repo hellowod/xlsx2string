@@ -21,7 +21,7 @@ namespace xlsx2string
     {
         private Dictionary<string, Dictionary<string, object>> datTable;
 
-        public override void Export()
+        public override void Process()
         {
             if (datTable == null) {
                 throw new Exception("JsonExporter内部数据为空。");

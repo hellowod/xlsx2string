@@ -13,7 +13,7 @@ namespace xlsx2string
 {
     public class CplusExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             
         }

@@ -166,9 +166,9 @@ namespace xlsx2string
         }
 
         /// <summary>
-        /// 导出
+        /// 处理
         /// </summary>
-        public virtual void Export()
+        public virtual void Process()
         {
             
         }

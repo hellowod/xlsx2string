@@ -12,7 +12,7 @@ namespace xlsx2string
 {
     public class HtmlExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             StringBuilder sb = new StringBuilder();
 

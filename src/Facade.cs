@@ -295,7 +295,7 @@ namespace xlsx2string
             exporter.Coding = coding;
 
             exporter.Init();
-            exporter.Export();
+            exporter.Process();
             exporter.Clear();
         }
     }

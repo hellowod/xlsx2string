@@ -12,7 +12,7 @@ namespace xlsx2string
 {
     public class JavaExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             if (FieldList == null) {
                 throw new Exception("Filed java is null.");

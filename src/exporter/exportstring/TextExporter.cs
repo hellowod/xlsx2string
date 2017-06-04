@@ -13,7 +13,7 @@ namespace xlsx2string
 {
     public class TextExporter : ExporterBase
     {
-        public override void Export()
+        public override void Process()
         {
             StringBuilder sb = new StringBuilder();
 
