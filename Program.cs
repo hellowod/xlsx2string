@@ -27,14 +27,11 @@ namespace xlsx2string
         [STAThread]
         private static void Main(string[] args)
         {
-            String appPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            Console.WriteLine(appPath);
-
-            //if (args.Length > 0) {
-            //    ConsoleMode(args);
-            //} else {
-            //    WinformMode();
-            //}
+            if (args.Length > 0) {
+                ConsoleMode(args);
+            } else {
+                WinformMode();
+            }
         }
 
         /// <summary>

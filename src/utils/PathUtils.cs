@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.IO;
 
 /***
  * PathUtils.cs
@@ -18,6 +20,24 @@ namespace xlsx2string
         public static string GetLocalApplicationDataPath()
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        }
+
+        /// <summary>
+        /// 产品的本地数据目录
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProductLocalApplicationDataPath()
+        {
+            return Path.Combine(GetLocalApplicationDataPath(), Application.ProductName);
+        }
+
+        /// <summary>
+        /// 产品缓存文件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProductCacheFilePath()
+        {
+            return Path.Combine(GetProductLocalApplicationDataPath(), string.Format("{0}.json", Application.ProductName));
         }
     }
 }

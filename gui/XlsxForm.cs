@@ -21,6 +21,7 @@ namespace xlsx2string
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.InitializeComponent();
+            this.InitializeComponentValue();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace xlsx2string
             this.textBox3.Text = OnSelectedPath("表格");
         }
 
+        private void SetInputPath(string path)
+        {
+            this.textBox3.Text = path;
+        }
+
         /// <summary>
         /// 浏览输出文件
         /// </summary>
@@ -73,6 +79,11 @@ namespace xlsx2string
         private void button4_Click(object sender, EventArgs e)
         {
             this.textBox2.Text = OnSelectedPath("导出");
+        }
+
+        private void SetOutputPath(string path)
+        {
+            this.textBox2.Text = path;
         }
 
         /// <summary>
@@ -218,7 +229,7 @@ namespace xlsx2string
             textBox4.AppendText(string.Format("{0}   {1}   ok\n", DateTime.Now.ToString("HH:mm:ss"), value));
         }
 
-        private void OnCheckedChangeed(object sender, EventArgs e)
+        private void OnCheckedChanged(object sender, EventArgs e)
         {
             CheckBox check = sender as CheckBox;
             if (check == null) {
@@ -234,42 +245,42 @@ namespace xlsx2string
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
         }
 
         /// <summary>
@@ -294,7 +305,46 @@ namespace xlsx2string
 
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
-            OnCheckedChangeed(sender, e);
+            OnCheckedChanged(sender, e);
+        }
+
+        private void InitializeComponentValue()
+        {
+            OptionsForm option = DataMemory.ReviewOptionForm();
+            if(option == null) {
+                return;
+            }
+            SetInputPath(option.XlsxSrcPath);
+            SetOutputPath(option.XlsxDstPath);
+
+            foreach (ExportType type in option.ExporterList) {
+                foreach (object obj in this.groupBox2.Controls) {
+                    if (!(obj is CheckBox)) {
+                        continue;
+                    }
+                    CheckBox b = obj as CheckBox;
+                    ExportType t = b.Text.ToEnum<ExportType>();
+                    if (type == t) {
+                        b.Checked = true;
+                    }
+                }
+            }
+            DataMemory.SetOptionForm(option);
+        }
+
+        private void XlsxForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void XlsxForm_Close(object sender, EventArgs e)
+        {
+            DataMemory.CacheOptionFrom();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

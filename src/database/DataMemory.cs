@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using LitJson;
 
 /***
  * DataMemory.cs
@@ -146,6 +147,41 @@ namespace xlsx2string
         public static OptionsForm GetOptionsFrom()
         {
             return exporterOptionsForm;
+        }
+
+        /// <summary>
+        /// 设置选项参数
+        /// </summary>
+        /// <param name="option"></param>
+        public static void SetOptionForm(OptionsForm option)
+        {
+            exporterOptionsForm = option;
+        }
+
+        /// <summary>
+        /// 缓存选项参数
+        /// </summary>
+        public static void CacheOptionFrom()
+        {
+            string path = PathUtils.GetProductCacheFilePath();
+
+            FileUtils.CreateFile(path);
+            string json = JsonMapper.ToJson(GetOptionsFrom());
+            FileUtils.WriteFile(path, json);
+        }
+
+        /// <summary>
+        /// 恢复选项参数
+        /// </summary>
+        public static OptionsForm ReviewOptionForm()
+        {
+            string path = PathUtils.GetProductCacheFilePath();
+
+            string json = FileUtils.ReadFile(path);
+            if (string.IsNullOrEmpty(json)) {
+                return null;
+            }
+            return JsonMapper.ToObject<OptionsForm>(json);
         }
 
         /// <summary>

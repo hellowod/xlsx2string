@@ -307,7 +307,8 @@ namespace xlsx2string
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 18;
-            this.label5.Text = "Xlsx表格路径";
+            this.label5.Text = "表格文件路径";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button2
             // 
@@ -341,6 +342,8 @@ namespace xlsx2string
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "XlsxForm";
             this.Text = "xlsx2string";
+            this.Closed += new System.EventHandler(this.XlsxForm_Close);
+            this.Load += new System.EventHandler(this.XlsxForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
