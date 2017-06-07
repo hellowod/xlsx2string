@@ -17,6 +17,9 @@ namespace xlsx2string
 {
     public static class Facade
     {
+        // 确定编码
+        public static Encoding Coding = new UTF8Encoding(false);
+
         /// <summary>
         /// 检查用户输入信息
         /// </summary>
@@ -199,9 +202,12 @@ namespace xlsx2string
                     if (argv.OnProgressChanged != null) {
                         argv.OnProgressChanged(curreExportCount);
                     }
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                 }
             }
+
+            RunExporterAll();
+
             if (argv.OnRunChanged != null) {
                 argv.OnRunChanged("=================导出完毕=================");
             }
@@ -226,10 +232,7 @@ namespace xlsx2string
             try {
                 DataTable sheet = LoadSheet(option.ExcelPath);
                 if (sheet != null) {
-                    // 确定编码
-                    Encoding coding = new UTF8Encoding(false);
-                    // 执行导出器 
-                    RunExporter(type, sheet, option, coding);
+                    RunExporter(type, sheet, option);
                 }
             } catch (System.Exception ex) {
                 throw new Exception("Excel export error: " + ex.StackTrace);
@@ -284,7 +287,7 @@ namespace xlsx2string
         /// <param name="sheet"></param>
         /// <param name="option"></param>
         /// <param name="coding"></param>
-        private static void RunExporter(ExportType type, DataTable sheet, Options option, Encoding coding)
+        private static void RunExporter(ExportType type, DataTable sheet, Options option)
         {
             IExporter exporter = DataMemory.GetExporter(type);
             if (exporter == null) {
@@ -292,11 +295,33 @@ namespace xlsx2string
             }
             exporter.Sheet = sheet;
             exporter.Option = option;
-            exporter.Coding = coding;
+            exporter.Coding = Coding;
 
             exporter.Init();
             exporter.Process();
             exporter.Clear();
+        }
+
+        private static void RunExporterAll()
+        {
+
+            List<ExportType> typeList = DataMemory.GetOptionsFromTypes();
+            foreach (ExportType type in typeList) {
+                ExporterAll all = new ExporterAll();
+                all.OptionList = DataMemory.GetExportOptions(type);
+                all.Coding = Coding;
+                all.ExpType = type;
+                all.OutPath = GetExporterPath(type);
+
+                all.Init();
+                all.Process();
+                all.Clear();
+            }
+        }
+
+        private static string GetExporterPath(ExportType type)
+        {
+            return string.Format("{0}/{1}", DataMemory.GetOptionsFrom().XlsxDstPath, type);
         }
     }
 }

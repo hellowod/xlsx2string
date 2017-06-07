@@ -160,6 +160,8 @@
     <Compile Include="src\database\CheckeCallbackArgv.cs" />
     <Compile Include="src\database\DataMemory.cs" />
     <Compile Include="src\database\ExprotCallbackArgv.cs" />
+    <Compile Include="src\exporterall\ExporterAll.cs" />
+    <Compile Include="src\exporterall\IExporterAll.cs" />
     <Compile Include="src\exporter\ExporterBase.cs" />
     <Compile Include="src\exporter\exportcoder\CplusExporter.cs" />
     <Compile Include="src\exporter\exportcoder\CsharpExporter.cs" />
