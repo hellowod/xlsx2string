@@ -100,7 +100,7 @@ namespace xlsx2string
             sbConf.AppendLine();
             sbConf.AppendLine("\t\tpublic override void Init()");
             sbConf.AppendLine("\t\t{");
-            sbConf.AppendLine("\t\t\tConfigFactory.LoadConf<TabReaderImpl>(FILE_NAME, this);");
+            sbConf.AppendLine("\t\t\tFacade.Load<TabReaderImpl>(FILE_NAME, this);");
             sbConf.AppendLine("\t\t}");
             sbConf.AppendLine();
 

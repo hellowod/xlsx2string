@@ -121,7 +121,7 @@ namespace xlsx2string
             sb.AppendLine("\t\t{");
             foreach (Options option in OptionList) {
                 string name = GetFileName(Options.ConvertToString(ExpType, option));
-                sb.AppendFormat("\t\t\tConfigFactory.InitTabConf<{0}Tab, {1}TabConfig>();\n", name, name);
+                sb.AppendFormat("\t\t\tFacade.InitTabConf<{0}Tab, {1}TabConfig>();\n", name, name);
             }
             sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
