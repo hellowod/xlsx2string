@@ -40,7 +40,7 @@ namespace xlsx2string
 
             // 写文件
             string p = GetFileName(Option.TxtPath);
-            p = string.Format("{0}.tab.txt", p.ToLower());
+            p = string.Format("{0}/{1}.tab.txt", "Assets/Arts/Config/Resources", p.ToLower());
             p = Path.Combine(Path.GetDirectoryName(Option.TxtPath), p);
 
             this.WriteFile(p, sb.ToString(), Coding);

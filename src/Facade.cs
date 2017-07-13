@@ -165,7 +165,8 @@ namespace xlsx2string
                 }
                 foreach(ExportType type in typeList) {
                     string outFileName = string.Format("{0}.{1}", fileName, type);
-                    string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
+                    //string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
+                    string dstFile = Path.Combine(optionForm.XlsxDstPath, outFileName);
                     Options option = Options.ConvertToOption(srcFile, dstFile, type);
                     DataMemory.SetExportOption(type, option);
                     count++;
@@ -321,7 +322,7 @@ namespace xlsx2string
 
         private static string GetExporterPath(ExportType type)
         {
-            return string.Format("{0}/{1}", DataMemory.GetOptionsFrom().XlsxDstPath, type);
+            return string.Format("{0}/{1}", DataMemory.GetOptionsFrom().XlsxDstPath, "Assets/Scripts/Auto/Config/Tab");
         }
     }
 }

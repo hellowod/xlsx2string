@@ -100,7 +100,7 @@ namespace xlsx2string
             sbConf.AppendLine();
             sbConf.AppendLine("\t\tpublic override void Init()");
             sbConf.AppendLine("\t\t{");
-            sbConf.AppendLine("\t\t\tFacade.Load<TabReaderImpl>(FILE_NAME, this);");
+            sbConf.AppendLine("\t\t\tFacade.LoadConfig<TabReaderImpl>(FILE_NAME, this);");
             sbConf.AppendLine("\t\t}");
             sbConf.AppendLine();
 
@@ -124,7 +124,7 @@ namespace xlsx2string
 
             // 写文件
             string p = GetFileName(Option.CSharpPath);
-            p = string.Format("{0}TabConf.cs", p);
+            p = string.Format("{0}/{1}TabConf.cs", "Assets/Scripts/Auto/Config/Tab", p);
             p = Path.Combine(Path.GetDirectoryName(Option.CSharpPath), p);
 
             // 写文件
