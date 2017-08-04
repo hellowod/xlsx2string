@@ -59,7 +59,7 @@ namespace xlsx2string
             if (this.ClassComment != null) {
                 sbTab.AppendLine(this.ClassComment);
             }
-            sbTab.AppendFormat("\tpublic class {0}Tab  : AbsTabConfigData\r\n\t{{", defName);
+            sbTab.AppendFormat("\tpublic class {0}  : AbsTabConfigData\r\n\t{{", defName.Replace("_", ""));
             sbTab.AppendLine();
 
             foreach (FieldDef field in FieldList) {
@@ -87,9 +87,9 @@ namespace xlsx2string
 
             // 创建代码字符串
             StringBuilder sbConf = new StringBuilder();
-            sbConf.AppendFormat("\tpublic class {0}TabConfig : AbsTabConfig\r\n\t{{", defName);
+            sbConf.AppendFormat("\tpublic class {0}Config : AbsTabConfig\r\n\t{{", defName.Replace("_", ""));
             sbConf.AppendLine();
-            sbConf.AppendFormat("\t\tpublic const string FILE_NAME = \"{0}.tab\";\n", defName.ToLower());
+            sbConf.AppendFormat("\t\tpublic const string FILE_NAME = \"{0}.tab\";\n", defName.ToLower().Replace("_", ""));
             sbConf.AppendLine();
             sbConf.AppendLine("\t\tpublic enum Cols");
             sbConf.AppendLine("\t\t{");
@@ -105,7 +105,7 @@ namespace xlsx2string
             sbConf.AppendLine();
 
             sbConf.AppendLine("\t\tpublic override void OnRow(ITabRow row) \n\t\t{");
-            sbConf.AppendFormat("\t\t\t{0}Tab tab = new {1}Tab();\n", defName, defName);
+            sbConf.AppendFormat("\t\t\t{0} tab = new {1}();\n", defName.Replace("_", ""), defName.Replace("_", ""));
             foreach (FieldDef field in FieldList) {
                 string typeName = field.type.Substring(0, 1).ToUpper() + field.type.Substring(1);
                 sbConf.AppendFormat("\t\t\ttab.{0} = row.Get{1}((int)Cols.{2});\n", field.name, typeName, field.name.ToUpper());
@@ -124,7 +124,7 @@ namespace xlsx2string
 
             // 写文件
             string p = GetFileName(Option.CSharpPath);
-            p = string.Format("{0}/{1}TabConf.cs", "Assets/Scripts/Auto/Config/Tab", p);
+            p = string.Format("{0}/{1}Config.cs", "Assets/Scripts/Auto/Config/Tab", p.Replace("_", ""));
             p = Path.Combine(Path.GetDirectoryName(Option.CSharpPath), p);
 
             // 写文件

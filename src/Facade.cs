@@ -157,13 +157,14 @@ namespace xlsx2string
             foreach (string srcFile in files) {
                 string fileName = string.Empty;
                 string xlsxName = Path.GetFileNameWithoutExtension(srcFile);
-                string[] xlsxNameArray = xlsxName.Split('_');
-                if(xlsxNameArray.Length > 1) {
-                    fileName = xlsxNameArray[1];
-                } else {
-                    fileName = xlsxNameArray[0];
-                }
-                foreach(ExportType type in typeList) {
+                //string[] xlsxNameArray = xlsxName.Split('_');
+                //if(xlsxNameArray.Length > 1) {
+                //    fileName = xlsxNameArray[1];
+                //} else {
+                //    fileName = xlsxNameArray[0];
+                //}
+                fileName = xlsxName;
+                foreach (ExportType type in typeList) {
                     string outFileName = string.Format("{0}.{1}", fileName, type);
                     //string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
                     string dstFile = Path.Combine(optionForm.XlsxDstPath, outFileName);

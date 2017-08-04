@@ -120,8 +120,8 @@ namespace xlsx2string
             sb.AppendLine("\t\tpublic static void InitConfig()");
             sb.AppendLine("\t\t{");
             foreach (Options option in OptionList) {
-                string name = GetFileName(Options.ConvertToString(ExpType, option));
-                sb.AppendFormat("\t\t\tFacade.InitTabConf<{0}Tab, {1}TabConfig>();\n", name, name);
+                string name = GetFileName(Options.ConvertToString(ExpType, option)).Replace("_", "");
+                sb.AppendFormat("\t\t\tFacade.InitTabConf<{0}, {1}Config>();\n", name, name);
             }
             sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
