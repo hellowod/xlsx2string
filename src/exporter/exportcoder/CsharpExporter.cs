@@ -59,7 +59,7 @@ namespace xlsx2string
             if (this.ClassComment != null) {
                 sbTab.AppendLine(this.ClassComment);
             }
-            sbTab.AppendFormat("\tpublic class {0}  : AbsTabConfigData\r\n\t{{", defName.Replace("_", ""));
+            sbTab.AppendFormat("\tpublic class {0}  : AbsTabData\r\n\t{{", defName.Replace("_", ""));
             sbTab.AppendLine();
 
             foreach (FieldDef field in FieldList) {
@@ -89,7 +89,7 @@ namespace xlsx2string
             StringBuilder sbConf = new StringBuilder();
             sbConf.AppendFormat("\tpublic class {0}Config : AbsTabConfig\r\n\t{{", defName.Replace("_", ""));
             sbConf.AppendLine();
-            sbConf.AppendFormat("\t\tpublic const string FILE_NAME = \"{0}.tab\";\n", defName.ToLower().Replace("_", ""));
+            sbConf.AppendFormat("\t\tpublic const string FILE_NAME = \"Assets/Arts/Config/Tab/{0}.tab.txt\";\n", defName.ToLower().Replace("_", ""));
             sbConf.AppendLine();
             sbConf.AppendLine("\t\tpublic enum Cols");
             sbConf.AppendLine("\t\t{");
@@ -100,7 +100,7 @@ namespace xlsx2string
             sbConf.AppendLine();
             sbConf.AppendLine("\t\tpublic override void Init()");
             sbConf.AppendLine("\t\t{");
-            sbConf.AppendLine("\t\t\tFacade.LoadConfig<TabReaderImpl>(FILE_NAME, this);");
+            sbConf.AppendLine("\t\t\tFacade.Config.Load<TabReaderImpl>(FILE_NAME, this, false);");
             sbConf.AppendLine("\t\t}");
             sbConf.AppendLine();
 

@@ -117,12 +117,27 @@ namespace xlsx2string
             sb.AppendLine("{");
             sb.AppendFormat("\tpublic class {0}\n", TypeMapping[ExpType]);
             sb.AppendLine("\t{");
+
+            sb.AppendLine("\t\tprivate static int s_index = 0;");
+            sb.AppendLine();
+
             sb.AppendLine("\t\tpublic static void InitConfig()");
             sb.AppendLine("\t\t{");
+
+            sb.AppendLine("\t\t\ts_index = 0;");
+
             foreach (Options option in OptionList) {
+                sb.AppendLine("\t\t\ts_index++;");
                 string name = GetFileName(Options.ConvertToString(ExpType, option)).Replace("_", "");
-                sb.AppendFormat("\t\t\tFacade.InitTabConf<{0}, {1}Config>();\n", name, name);
+                sb.AppendFormat("\t\t\tFacade.Config.InitTabConf<{0}, {1}Config>();\n", name, name);
             }
+            sb.AppendLine("\t\t}");
+
+            sb.AppendLine("\t\tpublic static int Index");
+            sb.AppendLine("\t\t{");
+            sb.AppendLine("\t\t\tget {");
+            sb.AppendLine("\t\t\t\treturn s_index;");
+            sb.AppendLine("\t\t\t}");
             sb.AppendLine("\t\t}");
             sb.AppendLine("\t}");
             sb.AppendLine("}");
