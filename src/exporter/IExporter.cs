@@ -43,7 +43,7 @@ namespace xlsx2string
         /// <summary>
         /// 处理
         /// </summary>
-        void Process();
+        void Process(bool isOver = true);
 
         /// <summary>
         /// 清理

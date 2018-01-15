@@ -89,6 +89,7 @@ namespace xlsx2string
             TypeArray["float"] = "float";
             TypeArray["double"] = "double";
             TypeArray["bool"] = "bool";
+            TypeArray["boolean"] = "bool";
 
             TypeArray["shortarray"] = "short[]";
             TypeArray["ushortarray"] = "ushort[]";
@@ -179,7 +180,7 @@ namespace xlsx2string
         /// <summary>
         /// 处理
         /// </summary>
-        public virtual void Process()
+        public virtual void Process(bool isOver = true)
         {
             
         }

@@ -19,6 +19,7 @@ namespace xlsx2string
     {
         // 确定编码
         public static Encoding Coding = new UTF8Encoding(false);
+        private static int languageCount = 0;
 
         /// <summary>
         /// 检查用户输入信息
@@ -153,20 +154,12 @@ namespace xlsx2string
                 return;
             }
             int count = 0;
-            // 注意xlsx文件命名规则： 标号_英文名_中文名
             foreach (string srcFile in files) {
                 string fileName = string.Empty;
                 string xlsxName = Path.GetFileNameWithoutExtension(srcFile);
-                //string[] xlsxNameArray = xlsxName.Split('_');
-                //if(xlsxNameArray.Length > 1) {
-                //    fileName = xlsxNameArray[1];
-                //} else {
-                //    fileName = xlsxNameArray[0];
-                //}
                 fileName = xlsxName;
                 foreach (ExportType type in typeList) {
                     string outFileName = string.Format("{0}.{1}", fileName, type);
-                    //string dstFile = Path.Combine(optionForm.XlsxDstPath, type.ToString(), outFileName);
                     string dstFile = Path.Combine(optionForm.XlsxDstPath, outFileName);
                     Options option = Options.ConvertToOption(srcFile, dstFile, type);
                     DataMemory.SetExportOption(type, option);
@@ -231,13 +224,16 @@ namespace xlsx2string
         /// <returns></returns>
         public static Options CmdXlsx(ExportType type, Options option)
         {
+            if(string.IsNullOrEmpty(Options.ConvertToString(type, option))) {
+                return null;
+            }
             try {
                 DataTable sheet = LoadSheet(option.ExcelPath);
                 if (sheet != null) {
                     RunExporter(type, sheet, option);
                 }
             } catch (System.Exception ex) {
-                throw new Exception("Excel export error: " + ex.StackTrace);
+                throw new Exception("Excel table error: " + option.ExcelPath + ex.Message + ex.StackTrace);
             }
 
             return option;
@@ -291,17 +287,40 @@ namespace xlsx2string
         /// <param name="coding"></param>
         private static void RunExporter(ExportType type, DataTable sheet, Options option)
         {
-            IExporter exporter = DataMemory.GetExporter(type);
-            if (exporter == null) {
-                return;
-            }
-            exporter.Sheet = sheet;
-            exporter.Option = option;
-            exporter.Coding = Coding;
+            IExporter exporter = null;
 
-            exporter.Init();
-            exporter.Process();
-            exporter.Clear();
+            string path = Options.ConvertToString(type, option);
+            if (path.Contains(Config.LANGUAGE)) {
+                if(type == ExportType.txt) {
+                    languageCount++;
+                    exporter = DataMemory.GetExporter(ExportType.i18n);
+                    if (exporter != null) {
+                        exporter.Sheet = sheet;
+                        exporter.Option = option;
+                        exporter.Coding = Coding;
+
+                        exporter.Init();
+                        if(languageCount == DataMemory.GetExportLanguageTotalCount()) {
+                            exporter.Process();
+                        } else {
+                            exporter.Process(false);
+                        }
+                        exporter.Clear();
+                    }
+                }
+
+            } else {
+                exporter = DataMemory.GetExporter(type);
+                if (exporter != null) {
+                    exporter.Sheet = sheet;
+                    exporter.Option = option;
+                    exporter.Coding = Coding;
+
+                    exporter.Init();
+                    exporter.Process();
+                    exporter.Clear();
+                }
+            }
         }
 
         private static void RunExporterAll()
@@ -323,7 +342,7 @@ namespace xlsx2string
 
         private static string GetExporterPath(ExportType type)
         {
-            return string.Format("{0}/{1}", DataMemory.GetOptionsFrom().XlsxDstPath, "Assets/Scripts/Auto/Config/Tab");
+            return string.Format("{0}/{1}", DataMemory.GetOptionsFrom().XlsxDstPath, type.ToString());
         }
     }
 }

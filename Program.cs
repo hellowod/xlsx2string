@@ -12,12 +12,19 @@ using System.Runtime.InteropServices;
 namespace xlsx2string
 {
     /// <summary>
-    /// 启动程序
+    /// 启动程序--程序结构太差，暂时只是实现功能
     /// </summary>
     public class Program
     {
         private const int SW_HIDE = 0;
         private const int SW_SHOW = 5;
+
+        private const string ARGS =
+            "使用： xlsx2string.exe [-options]\n" +
+            "参数:\n" +
+            "\t-i 输入路径 路径为数据表的根目录路径\n" +
+            "\t-o 输出路径 输出路径为数据表导出路径\n" +
+            "退出请按任意键退出程序";
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetConsoleWindow();
@@ -30,7 +37,9 @@ namespace xlsx2string
             if (args.Length > 0) {
                 ConsoleMode(args);
             } else {
-                WinformMode();
+                //WinformMode();
+                Console.WriteLine(ARGS);
+                Console.Read();
             }
         }
 
@@ -41,24 +50,39 @@ namespace xlsx2string
         private static void ConsoleMode(string[] args)
         {
             DateTime startTime = DateTime.Now;
-            Options options = new Options();
+            OptionCmmd options = new OptionCmmd();
             CommandLine.Parser parser = new CommandLine.Parser((with) => {
                 with.HelpWriter = Console.Error;
             });
 
             if (parser.ParseArgumentsStrict(args, options, () => Environment.Exit(-1))) {
                 try {
-                    foreach (ExportType exportType in Enum.GetValues(typeof(ExportType))) {
-                        Facade.CmdXlsx(exportType, options);
-                    }
+                    OptionsForm optionForm = new OptionsForm();
+                    optionForm.XlsxSrcPath = options.InputPath;
+                    optionForm.XlsxDstPath = options.OutputPath;
+
+                    optionForm.SetExportType(ExportType.cs);
+                    optionForm.SetExportType(ExportType.txt);
+                    DataMemory.SetOptionForm(optionForm);
+
+                    ExprotCallbackArgv argv = new ExprotCallbackArgv();
+                    argv.OnProgressChanged = (int progress)=> {
+                        //Console.WriteLine(string.Format("Export progress {0}", progress));
+                    };
+                    argv.OnRunChanged = (string message) => {
+                        Console.WriteLine(string.Format("Export message {0}", message));
+                    };
+
+                    Facade.BeforeExporterOptionForm();
+                    Facade.RunXlsxForm(argv);
+                    Facade.AfterExporterOptionForm();
+
                 } catch (Exception ex) {
                     Console.WriteLine("Error: " + ex.Message);
                 }
             }
             TimeSpan expend = DateTime.Now - startTime;
-            Console.WriteLine(
-                string.Format("Expend time [{1} millisecond].", expend.Milliseconds)
-            );
+            Console.WriteLine(string.Format("Expend time [{0} millisecond].", expend.Milliseconds));
         }
 
         /// <summary>

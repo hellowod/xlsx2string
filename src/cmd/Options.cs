@@ -1,5 +1,4 @@
 ﻿using CommandLine;
-using System.Collections.Generic;
 
 /***
  * Options.cs
@@ -22,48 +21,13 @@ namespace xlsx2string
             set;
         }
 
-        [Option('j', "json", Required = false, HelpText = "指定输出的json文件路径.")]
-        public string JsonPath
-        {
-            get;
-            set;
-        }
-
         [Option('t', "txt", Required = false, HelpText = "指定输出的txt文件路径.")]
         public string TxtPath
         {
             get;
             set;
         }
-
-        [Option('c', "csv", Required = false, HelpText = "指定输出的csv文件路径.")]
-        public string CsvPath
-        {
-            get;
-            set;
-        }
-
-        [Option('h', "html", Required = false, HelpText = "指定输出的html文件路径.")]
-        public string HtmlPath
-        {
-            get;
-            set;
-        }
-
-        [Option('l', "lua", Required = false, HelpText = "指定输出的lua数据定义代码文件路径.")]
-        public string LuaPath
-        {
-            get;
-            set;
-        }
-
-        [Option('s', "sql", Required = false, HelpText = "指定输出的sql文件路径.")]
-        public string SQLPath
-        {
-            get;
-            set;
-        }
-
+ 
         [Option('p', "csharp", Required = false, HelpText = "指定输出的c#数据定义代码文件路径.")]
         public string CSharpPath
         {
@@ -73,20 +37,6 @@ namespace xlsx2string
 
         [Option('j', "java", Required = false, HelpText = "指定输出的java数据定义代码文件路径.")]
         public string JavaPath
-        {
-            get;
-            set;
-        }
-
-        [Option('+', "cpp", Required = false, HelpText = "指定输出的cpp数据定义代码文件路径.")]
-        public string CppPath
-        {
-            get;
-            set;
-        }
-
-        [Option('g', "go", Required = false, HelpText = "指定输出的go数据定义代码文件路径.")]
-        public string GoPath
         {
             get;
             set;
@@ -111,35 +61,14 @@ namespace xlsx2string
             Options option = new Options();
             option.ExcelPath = inputPath;
             switch (type) {
-                case ExportType.json:
-                    option.JsonPath = outputPath;
-                    break;
                 case ExportType.txt:
                     option.TxtPath = outputPath;
-                    break;
-                case ExportType.html:
-                    option.HtmlPath = outputPath;
-                    break;
-                case ExportType.csv:
-                    option.CsvPath = outputPath;
-                    break;
-                case ExportType.lua:
-                    option.LuaPath = outputPath;
                     break;
                 case ExportType.cs:
                     option.CSharpPath = outputPath;
                     break;
                 case ExportType.java:
                     option.JavaPath = outputPath;
-                    break;
-                case ExportType.cpp:
-                    option.CppPath = outputPath;
-                    break;
-                case ExportType.go:
-                    option.GoPath = outputPath;
-                    break;
-                case ExportType.sql:
-                    option.SQLPath = outputPath;
                     break;
                 default:
                     break;
@@ -157,35 +86,14 @@ namespace xlsx2string
         {
             string tmpStr = string.Empty;
             switch (type) {
-                case ExportType.json:
-                    tmpStr = option.JsonPath;
-                    break;
                 case ExportType.txt:
                     tmpStr = option.TxtPath;
-                    break;
-                case ExportType.csv:
-                    tmpStr = option.CsvPath;
-                    break;
-                case ExportType.html:
-                    tmpStr = option.HtmlPath;
-                    break;
-                case ExportType.lua:
-                    tmpStr = option.LuaPath;
                     break;
                 case ExportType.cs:
                     tmpStr = option.CSharpPath;
                     break;
                 case ExportType.java:
                     tmpStr = option.JavaPath;
-                    break;
-                case ExportType.cpp:
-                    tmpStr = option.CppPath;
-                    break;
-                case ExportType.go:
-                    tmpStr = option.GoPath;
-                    break;
-                case ExportType.sql:
-                    tmpStr = option.SQLPath;
                     break;
                 default:
                     break;

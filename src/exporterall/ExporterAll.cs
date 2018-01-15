@@ -127,9 +127,11 @@ namespace xlsx2string
             sb.AppendLine("\t\t\ts_index = 0;");
 
             foreach (Options option in OptionList) {
-                sb.AppendLine("\t\t\ts_index++;");
-                string name = GetFileName(Options.ConvertToString(ExpType, option)).Replace("_", "");
-                sb.AppendFormat("\t\t\tFacade.Config.InitTabConf<{0}, {1}Config>();\n", name, name);
+                if (!option.ExcelPath.Contains(Config.LANGUAGE)) {
+                    sb.AppendLine("\t\t\ts_index++;");
+                    string name = GetFileName(Options.ConvertToString(ExpType, option)).Replace("_", "");
+                    sb.AppendFormat("\t\t\tFacade.Config.InitTabConf<{0}, {1}Config>();\n", name, name);
+                }
             }
             sb.AppendLine("\t\t}");
 

@@ -13,17 +13,12 @@ namespace xlsx2string
     {
         invalid,
 
-        json,
         txt,
-        csv,
-        html,
-        lua,
-
         cs,
         java,
-        cpp,
-        go,
-        sql
+
+        // 特殊
+        i18n
     }
 
     public static class TypeHelper

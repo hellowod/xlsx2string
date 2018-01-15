@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\cfg\XlsxCfg.cs" />
+    <Compile Include="src\cmd\OptionCmmd.cs" />
     <Compile Include="src\cmd\OptionsForm.cs" />
     <Compile Include="gui\XlsxForm.cs">
       <SubType>Form</SubType>
@@ -157,26 +158,21 @@
     <Compile Include="src\checker\IChecker.cs" />
     <Compile Include="src\checker\DataChecker.cs" />
     <Compile Include="src\checker\NormChecker.cs" />
+    <Compile Include="src\const\Config.cs" />
     <Compile Include="src\database\CheckeCallbackArgv.cs" />
     <Compile Include="src\database\DataMemory.cs" />
     <Compile Include="src\database\ExprotCallbackArgv.cs" />
     <Compile Include="src\exporterall\ExporterAll.cs" />
     <Compile Include="src\exporterall\IExporterAll.cs" />
     <Compile Include="src\exporter\ExporterBase.cs" />
-    <Compile Include="src\exporter\exportcoder\CplusExporter.cs" />
-    <Compile Include="src\exporter\exportcoder\CsharpExporter.cs" />
-    <Compile Include="src\exporter\exportcoder\GoLangExporter.cs" />
-    <Compile Include="src\exporter\exportstring\HtmlExporter.cs" />
-    <Compile Include="src\exporter\exportstring\LuaExporter.cs" />
-    <Compile Include="src\exporter\exportstring\CsvExporter.cs" />
+    <Compile Include="src\exporter\Impl\CsharpExporter.cs" />
     <Compile Include="src\exporter\IExporter.cs" />
-    <Compile Include="src\exporter\exportcoder\JavaExporter.cs" />
-    <Compile Include="src\exporter\exportstring\JsonExporter.cs" />
-    <Compile Include="src\exporter\exportstring\TextExporter.cs" />
+    <Compile Include="src\exporter\Impl\JavaExporter.cs" />
+    <Compile Include="src\exporter\Impl\IniExporter.cs" />
+    <Compile Include="src\exporter\Impl\TextExporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="src\cmd\Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\exporter\exportstring\SQLExporter.cs" />
     <Compile Include="src\Facade.cs" />
     <Compile Include="plugin\litjson\IJsonWrapper.cs" />
     <Compile Include="plugin\litjson\JsonData.cs" />

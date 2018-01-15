@@ -28,6 +28,7 @@ namespace xlsx2string
 
         // 导出总数
         private static int exportTotalCount = 0;
+        private static int exportLanguageTotalCount = 0;
 
         static DataMemory()
         {
@@ -56,18 +57,10 @@ namespace xlsx2string
         /// </summary>
         private static void IniExporter()
         {
-            SetExporter(ExportType.json, new JsonExporter());
-            SetExporter(ExportType.lua, new LuaExporter());
-            SetExporter(ExportType.sql, new SQLExporter());
             SetExporter(ExportType.txt, new TextExporter());
-            SetExporter(ExportType.csv, new CsvExporter());
-            SetExporter(ExportType.html, new HtmlExporter());
-            SetExporter(ExportType.txt, new TextExporter());
-
-            SetExporter(ExportType.cpp, new CplusExporter());
             SetExporter(ExportType.cs, new CsharpExporter());
-            SetExporter(ExportType.go, new GoLangExporter());
             SetExporter(ExportType.java, new JavaExporter());
+            SetExporter(ExportType.i18n, new IniExporter());
         }
 
         /// <summary>
@@ -205,6 +198,9 @@ namespace xlsx2string
                 list = new List<Options>();
                 exporterOption.Add(type, list);
             }
+            if (option.ExcelPath.Contains(Config.LANGUAGE) && type == ExportType.txt) {
+                exportLanguageTotalCount++;
+            }
             list.Add(option);
         }
 
@@ -248,9 +244,22 @@ namespace xlsx2string
             exportTotalCount = count;
         }
 
+        /// <summary>
+        /// 获取导出总数
+        /// </summary>
+        /// <returns></returns>
         public static int GetExportTotalCount()
         {
             return exportTotalCount;
+        }
+
+        /// <summary>
+        /// 获取导出语言总数
+        /// </summary>
+        /// <returns></returns>
+        public static int GetExportLanguageTotalCount()
+        {
+            return exportLanguageTotalCount;
         }
 
         /// <summary>
